@@ -5,13 +5,158 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
           abi: [
             {
               inputs: [
                 {
                   internalType: "string",
+                  name: "purchaseName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p1",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p2",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p3",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p4",
+                  type: "string",
+                },
+              ],
+              name: "chooseBeneficiaries",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "purchaseName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p1",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p2",
+                  type: "string",
+                },
+              ],
+              name: "chooseBeneficiaries",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "purchaseName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p1",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p2",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p3",
+                  type: "string",
+                },
+              ],
+              name: "chooseBeneficiaries",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "purchaseName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p1",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p2",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p3",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p4",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p5",
+                  type: "string",
+                },
+              ],
+              name: "chooseBeneficiaries",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "purchaseName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "p1",
+                  type: "string",
+                },
+              ],
+              name: "chooseBeneficiaries",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
                   name: "nameOfBuyer",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "nameOfBeneficiary",
                   type: "string",
                 },
                 {
@@ -27,6 +172,11 @@ const contracts = {
                     {
                       internalType: "string",
                       name: "nameOfBuyer",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "nameOfBeneficiary",
                       type: "string",
                     },
                     {
@@ -59,14 +209,19 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "string",
-                  name: "buyerName",
-                  type: "string",
-                },
-                {
                   internalType: "uint256",
                   name: "amount",
                   type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "nameOfBuyer",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "purchaseName",
+                  type: "string",
                 },
               ],
               name: "logPurchase",
@@ -75,31 +230,13 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "personName",
-                  type: "string",
-                },
-              ],
-              name: "viewPerson",
+              inputs: [],
+              name: "totalBalance",
               outputs: [
                 {
-                  components: [
-                    {
-                      internalType: "address",
-                      name: "id",
-                      type: "address",
-                    },
-                    {
-                      internalType: "string",
-                      name: "name",
-                      type: "string",
-                    },
-                  ],
-                  internalType: "struct YourContract.Person",
+                  internalType: "uint256",
                   name: "",
-                  type: "tuple",
+                  type: "uint256",
                 },
               ],
               stateMutability: "view",

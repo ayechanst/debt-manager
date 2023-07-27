@@ -20,6 +20,8 @@ contract YourContract {
 	Person[] nodes;
 	// all transactions go here
 	Edge[] edges;
+	// beneficiaries
+	mapping(string => string[]) beneficiaries;
 
 
 	// the node
@@ -41,23 +43,41 @@ contract YourContract {
 		nodes.push(newPerson);
 	}
 
-	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, uint256 amount) public {
+	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, uint256 amount) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.nameOfBeneficiary = nameOfBeneficiary;
 		newEdge.amount = amount;
+		return newEdge;
+	}
+
+	function chooseBeneficiaries(string memory purchaseName, string memory p1) public {
+		beneficiaries[purchaseName] = [p1];
+	}
+	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2) public {
+		beneficiaries[purchaseName] = [p1, p2];
+	}
+	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2, string memory p3) public {
+		beneficiaries[purchaseName] = [p1, p2, p3];
+	}
+	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2, string memory p3, string memory p4) public {
+		beneficiaries[purchaseName] = [p1, p2, p3, p4];
+	}
+	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2, string memory p3, string memory p4, string memory p5) public {
+		beneficiaries[purchaseName] = [p1, p2, p3, p4, p5];
 	}
 
 	// this function needs to divide the amount and make edges for each person
 	// we could also loop over the array and assign people balances according to their names
-	function logPurchase(uint256 amount, uint256 numOfPeople, string memory nameOfBuyer) public {
-
+	function logPurchase(uint256 amount, string memory nameOfBuyer, string memory purchaseName) public {
+		uint256 numOfPeople = beneficiaries[purchaseName].length;
+		uint256 dividedCost = amount / numOfPeople;
+		for (uint256 i = 0; i < numOfPeople; i++) {
+			string memory person = beneficiaries[purchaseName][i];
+			Edge memory newEdge = createEdge(nameOfBuyer, person, dividedCost);
+			edges.push(newEdge);
+		}
 	}
-
-
-
-
-
 
 
 
