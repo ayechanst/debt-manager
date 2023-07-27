@@ -31,18 +31,31 @@ contract YourContract {
 	// the graph data structure
 	mapping(string => Person) people;
 
+	// stores arrays of beneficiaries
+	mapping(string => string[]);
 
-	function makePerson(string memory personName) public {
+
+	function createPerson(string memory personName) public {
 		Person memory newPerson;
 		newPerson.name = personName;
 		people[personName] = newPerson;
 	}
 
-	// the edges
-	function createEdge() {
-		// we want to pass a transaction struct into the edges array of people
+	// function that creates an array of people who benefitted
+	function createBeneficiaries(string memory person1) public returns (string[] memory) {
+		string[] beneficiaries;
+		benficiaries.push(person1);
+		return beneficiaries;
+		// I could make a mapping that lets user input their beneficiaries in the creatEdge()
 	}
 
+	// the edges
+	function createEdge(string memory nameOfBuyer,
+						string[] memory beneficiaries,
+					    uint256 memory amount) {
+		// we want to pass a transaction struct into the edges array of people
+
+	}
 
 
 	function logPurchase(string memory buyerName, uint256 amount) public {
