@@ -5,120 +5,13 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
           abi: [
             {
               inputs: [
                 {
                   internalType: "string",
-                  name: "purchaseName",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person1",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person2",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person3",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person4",
-                  type: "string",
-                },
-              ],
-              name: "createBeneficiaries",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "purchaseName",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person1",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person2",
-                  type: "string",
-                },
-              ],
-              name: "createBeneficiaries",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "purchaseName",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person1",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person2",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person3",
-                  type: "string",
-                },
-              ],
-              name: "createBeneficiaries",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "purchaseName",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "person1",
-                  type: "string",
-                },
-              ],
-              name: "createBeneficiaries",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
                   name: "nameOfBuyer",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "purchaseName",
                   type: "string",
                 },
                 {
@@ -128,7 +21,25 @@ const contracts = {
                 },
               ],
               name: "createEdge",
-              outputs: [],
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "nameOfBuyer",
+                      type: "string",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "amount",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct YourContract.Edge",
+                  name: "",
+                  type: "tuple",
+                },
+              ],
               stateMutability: "nonpayable",
               type: "function",
             },
@@ -167,25 +78,6 @@ const contracts = {
               inputs: [
                 {
                   internalType: "string",
-                  name: "purchaseName",
-                  type: "string",
-                },
-              ],
-              name: "viewBeneficiaries",
-              outputs: [
-                {
-                  internalType: "string[]",
-                  name: "",
-                  type: "string[]",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
                   name: "personName",
                   type: "string",
                 },
@@ -203,16 +95,6 @@ const contracts = {
                       internalType: "string",
                       name: "name",
                       type: "string",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "balance",
-                      type: "uint256",
-                    },
-                    {
-                      internalType: "string[]",
-                      name: "edges",
-                      type: "string[]",
                     },
                   ],
                   internalType: "struct YourContract.Person",

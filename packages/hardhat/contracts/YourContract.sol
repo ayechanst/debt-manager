@@ -14,44 +14,53 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 
-	// the node
-	struct Person {
-		address id;
-		string name;
-	}
+	uint256 public totalBalance;
 
-	struct Edge {
-		string nameOfBuyer;
-		uint256 amount;
-	}
-
+	// graph data structure
+	Person[] nodes;
+	// all transactions go here
 	Edge[] edges;
 
+
+	// the node
+	struct Person {
+		string name;
+		// a person can be connected with any amount of people
+	}
+
+	// an edge will be created for each beneficiary and "given to them"
+	struct Edge {
+		string nameOfBuyer;
+		string nameOfBeneficiary;
+		uint256 amount;
+	}
 
 	function createPerson(string memory personName) public {
 		Person memory newPerson;
 		newPerson.name = personName;
-		people[personName] = newPerson;
+		nodes.push(newPerson);
 	}
 
-
-	function createEdge(string memory nameOfBuyer,
-					    uint256 amount) public returns (Edge memory) {
+	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, uint256 amount) public {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
+		newEdge.nameOfBeneficiary = nameOfBeneficiary;
 		newEdge.amount = amount;
-		return newEdge;
 	}
 
-	function logPurchase(string memory buyerName,
-						 uint256 amount,
-					     ) public {
-		people[buyerName].balance = amount;
+	// this function needs to divide the amount and make edges for each person
+	// we could also loop over the array and assign people balances according to their names
+	function logPurchase(uint256 amount, uint256 numOfPeople, string memory nameOfBuyer) public {
+
 	}
 
-	function viewPerson(string memory personName) public view returns (Person memory) {
-		return people[personName];
-	}
+
+
+
+
+
+
+
 
 
 
