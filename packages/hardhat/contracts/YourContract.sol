@@ -13,13 +13,14 @@ import "hardhat/console.sol";
  * @author BuidlGuidl
  */
 contract YourContract {
+	// go to line 88 or so
 
 	// the node
 	struct Person {
 		address id;
 		string name;
 		uint256 balance;
-		string[] edges;
+		Edge[] edges;
 	}
 
 	struct Edge {
@@ -28,7 +29,7 @@ contract YourContract {
 		uint256 amount;
 	}
 
-	// the graph data structure
+	// the graph data structure, the string here is the name of the person
 	mapping(string => Person) people;
 
 	// stores arrays of beneficiaries
@@ -41,30 +42,60 @@ contract YourContract {
 		people[personName] = newPerson;
 	}
 
-	// function that creates an array of people who benefitted
+	// function that creates an array of people who benefitted, overload style
 	function createBeneficiaries(string memory purchaseName, string memory person1) public {
 		beneficiariesStorage[purchaseName] = [person1];
-		// I could make a mapping that lets user input their beneficiaries in the creatEdge()
+	}
+	function createBeneficiaries(string memory purchaseName,
+								 string memory person1,
+							     string memory person2) public {
+		beneficiariesStorage[purchaseName] = [person1, person2];
+	}
+	function createBeneficiaries(string memory purchaseName,
+								 string memory person1,
+								 string memory person2,
+								 string memory person3) public {
+		beneficiariesStorage[purchaseName] = [person1, person2, person3];
+	}
+	function createBeneficiaries(string memory purchaseName,
+								 string memory person1,
+								 string memory person2,
+								 string memory person3,
+							     string memory person4) public {
+		beneficiariesStorage[purchaseName] = [person1, person2, person3, person4];
 	}
 
 	// the edges
 	function createEdge(string memory nameOfBuyer,
 						string memory purchaseName,
-					    uint256 amount) public {
+					    uint256 amount) public returns (Edge memory) {
 		// we want to pass a transaction struct into the edges array of people
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.namesOfBeneficiaries = beneficiariesStorage[purchaseName];
 		newEdge.amount = amount;
+		return newEdge;
 	}
 
 
-	function logPurchase(string memory buyerName, uint256 amount) public {
+	function logPurchase(string memory buyerName,
+						 uint256 amount,
+					     string memory purchaseName) public {
 		people[buyerName].balance = amount;
+		// we still need a way for them to input beneficiaries, but mabye
+		// in the UI?
+		Edge memory newEdge = createEdge(buyerName, purchaseName, amount);
+		// this next line is problematic we need to find a work around
+		// million dollar question: how to push data into an array that is in a struct?
+		people[buyerName].edges = edges.push(newEdge);
 	}
 
 	function viewPerson(string memory personName) public view returns (Person memory) {
 		return people[personName];
+	}
+
+	function viewBeneficiaries(string memory purchaseName) public view returns (string[] memory) {
+		return beneficiariesStorage[purchaseName];
 	}
 
 
