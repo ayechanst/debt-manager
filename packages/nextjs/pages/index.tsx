@@ -1,11 +1,10 @@
-import Link from "next/link";
-import { AddPerson } from "../components/AddPerson";
+import { Hero } from "../components/Hero";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
     <>
-      <AddPerson />
+      <Hero />
     </>
   );
 };

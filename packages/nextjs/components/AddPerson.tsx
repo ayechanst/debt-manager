@@ -33,13 +33,10 @@ export const AddPerson = () => {
             />
             <div className="py-5">
               <button type="submit" className="btn">
-                Submit
+                Add
               </button>
             </div>
           </form>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
         </div>
       </div>
     </>
