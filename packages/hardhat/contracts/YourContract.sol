@@ -32,7 +32,7 @@ contract YourContract {
 	mapping(string => Person) people;
 
 	// stores arrays of beneficiaries
-	mapping(string => string[]);
+	mapping(string => string[]) beneficiariesStorage;
 
 
 	function createPerson(string memory personName) public {
@@ -42,19 +42,20 @@ contract YourContract {
 	}
 
 	// function that creates an array of people who benefitted
-	function createBeneficiaries(string memory person1) public returns (string[] memory) {
-		string[] beneficiaries;
-		benficiaries.push(person1);
-		return beneficiaries;
+	function createBeneficiaries(string memory purchaseName, string memory person1) public {
+		beneficiariesStorage[purchaseName] = [person1];
 		// I could make a mapping that lets user input their beneficiaries in the creatEdge()
 	}
 
 	// the edges
 	function createEdge(string memory nameOfBuyer,
-						string[] memory beneficiaries,
-					    uint256 memory amount) {
+						string memory purchaseName,
+					    uint256 amount) public {
 		// we want to pass a transaction struct into the edges array of people
-
+		Edge memory newEdge;
+		newEdge.nameOfBuyer = nameOfBuyer;
+		newEdge.namesOfBeneficiaries = beneficiariesStorage[purchaseName];
+		newEdge.amount = amount;
 	}
 
 
