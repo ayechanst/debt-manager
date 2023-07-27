@@ -19,23 +19,28 @@ export const AddPerson = () => {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div className="py-5">Enter person's name:</div>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="createGameInput"
-            value={personName}
-            onChange={e => setPersonName(e.target.value)}
-            type="string"
-            required
-          />
-          <div className="py-5">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-              Submit
-            </button>
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Add Someone!</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="input input-bordered w-full max-w-xs"
+              id="createGameInput"
+              value={personName}
+              onChange={e => setPersonName(e.target.value)}
+              type="string"
+              required
+            />
+            <div className="py-5">
+              <button type="submit" className="btn">
+                Submit
+              </button>
+            </div>
+          </form>
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary">Buy Now</button>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
