@@ -4,19 +4,20 @@ export const Data = () => {
   // figure out what arguments to pass
   const people: string[] = [];
 
-  const { data: peopleArray } = useScaffoldContractRead<{
-    data: string[] | undefined;
-  }>({
+  const { data: peopleObject } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "getPeople",
   });
 
-  peopleArray?.forEach((item: string) => {
-    people.push(item);
-  });
+  if (peopleObject) {
+    const objLength = peopleObject?.length;
+    for (let i = 0; i < objLength; i++) {
+      people.push(peopleObject?.[i]);
+    }
+  }
 
-  const listItems = people.map(person => {
-    <li key={person}>{person}</li>;
+  const listItems: JSX.Element[] = people.map(person => {
+    return <li key={person}>{person}</li>;
   });
 
   return (
