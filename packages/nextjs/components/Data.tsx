@@ -1,7 +1,7 @@
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-export const Data = () => {
-  // figure out what arguments to pass
+// this component might not be displayed depending on how things go
+export const Data: React.FC = () => {
   const people: string[] = [];
 
   const { data: peopleObject } = useScaffoldContractRead({

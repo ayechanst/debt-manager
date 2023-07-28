@@ -2,7 +2,11 @@ import React, { useState } from "react";
 
 // import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-export const AddPurchase = () => {
+interface DataProps {
+  names: string[];
+}
+
+export const AddPurchase: React.FC<DataProps> = ({ names }) => {
   // first chooseBeneficiaries
   // second log purchase
 
@@ -32,7 +36,7 @@ export const AddPurchase = () => {
               value={personName}
               onChange={e => setPersonName(e.target.value)}
             />
-            {/* for each Person Struct load a radio button */}
+            {names.forEach(name => {})}
             <div className="py-5">
               <button type="submit" className="btn">
                 Add
