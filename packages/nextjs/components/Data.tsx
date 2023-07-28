@@ -1,3 +1,4 @@
+import React from "react";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 // this component might not be displayed depending on how things go

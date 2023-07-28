@@ -1,22 +1,36 @@
 import React, { useState } from "react";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 // import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-interface DataProps {
-  names: string[];
-}
-
-export const AddPurchase: React.FC<DataProps> = ({ names }) => {
+export const AddPurchase = () => {
   // first chooseBeneficiaries
   // second log purchase
 
   const [personName, setPersonName] = useState("");
   const [purchaseName, setPurchaseName] = useState("");
+  const people: string[] = [];
 
   // submits form
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
+
+  const { data: peopleObject } = useScaffoldContractRead({
+    contractName: "YourContract",
+    functionName: "getPeople",
+  });
+
+  if (peopleObject) {
+    const objLength = peopleObject?.length;
+    for (let i = 0; i < objLength; i++) {
+      people.push(peopleObject?.[i]);
+    }
+  }
+
+  const listItems: JSX.Element[] = people.map(person => {
+    return <div key={person}>{person}</div>;
+  });
 
   return (
     <>
@@ -36,7 +50,14 @@ export const AddPurchase: React.FC<DataProps> = ({ names }) => {
               value={personName}
               onChange={e => setPersonName(e.target.value)}
             />
-            {names.forEach(name => {})}
+            {listItems.map((name, index) => (
+              <div key={index}>
+                <label className="flex">
+                  <input type="checkbox" className="checkbox" />
+                  {name}
+                </label>
+              </div>
+            ))}
             <div className="py-5">
               <button type="submit" className="btn">
                 Add
