@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { AddPerson } from "../components/AddPerson";
+import { AddPurchase } from "../components/AddPurchase";
+import { Data } from "../components/Data";
 
 export const NavBar = () => {
   const [addPerson, setAddperson] = useState(false);
+  const [addPurchase, setAddPurchase] = useState(false);
 
   function handleAddPerson() {
     setAddperson(!addPerson);
   }
+
+  function handleAddPurchase() {
+    setAddPurchase(!addPurchase);
+  }
+
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -38,13 +46,17 @@ export const NavBar = () => {
                 <a>View Balances </a>
               </li>
               <li>
-                <a>Add Purchase </a>
+                <button onClick={handleAddPurchase} className="btn btn-secondary">
+                  Add Purchase
+                </button>
               </li>
             </ul>
           </div>
         </div>
         {/* Page content here */}
+        <Data />
         {addPerson && <AddPerson />}
+        {addPurchase && <AddPurchase />}
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>

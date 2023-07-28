@@ -14,7 +14,6 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 
-	uint256 public totalBalance;
 
 	// graph data structure
 	Person[] nodes;
@@ -78,6 +77,25 @@ contract YourContract {
 			edges.push(newEdge);
 		}
 	}
+
+	function getPeople() public view returns (string[] memory) {
+		uint256 numOfPeople = nodes.length;
+		string[] memory peopleNames = new string[](numOfPeople);
+		for (uint256 i = 0; i < numOfPeople; i++) {
+			peopleNames[i] = nodes[i].name;
+		}
+		return peopleNames;
+	}
+
+
+
+
+
+
+
+
+
+
 
 
 

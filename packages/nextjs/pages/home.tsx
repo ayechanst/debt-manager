@@ -1,6 +1,6 @@
 import { NavBar } from "../components/NavBar";
 
-const Main: NextPage = () => {
+const Main = () => {
   return (
     <>
       <NavBar />
