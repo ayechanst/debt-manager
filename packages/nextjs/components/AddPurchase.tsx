@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-// import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-
 export const AddPurchase = () => {
   const people: string[] = [];
   const [personName, setPersonName] = useState("");
@@ -15,6 +13,7 @@ export const AddPurchase = () => {
   // submits form, both checkButtons and logPurchase
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    writeAsync({ args: [amountAsBigInt, personName, purchaseName, checkboxData] });
   }
 
   function handleCheckbox(name: string) {
