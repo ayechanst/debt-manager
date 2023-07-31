@@ -30,6 +30,7 @@ contract YourContract {
 	struct Edge {
 		string nameOfBuyer;
 		string nameOfBeneficiary;
+		string purchaseName;
 		uint256 debtAmount;
 	}
 
@@ -43,6 +44,7 @@ contract YourContract {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.nameOfBeneficiary = nameOfBeneficiary;
+		newEdge.purchaseName = purchaseName;
 		newEdge.debtAmount = debtAmount;
 		return newEdge;
 	}
