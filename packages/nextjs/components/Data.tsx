@@ -1,4 +1,5 @@
 import React from "react";
+import { DataCard } from "../components/DataCard";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 // this component might not be displayed depending on how things go
@@ -23,6 +24,8 @@ export const Data: React.FC = () => {
 
   return (
     <>
+      {/* for each person render a card with info */}
+      <DataCard />
       <ul>{listItems}</ul>
     </>
   );
