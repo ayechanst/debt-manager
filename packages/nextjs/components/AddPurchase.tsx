@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactDOMServer from "react-dom/server";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -10,10 +11,17 @@ export const AddPurchase = () => {
   const amountAsBigInt = BigInt(purchaseAmount);
   const [checkboxData, setCheckboxData] = useState<string[]>([]);
 
+  const htmlStringToString = checkboxData.reduce((acc, htmlString) => {
+    const regex = /<div>(.*?)<\/div>/g;
+    const matches = htmlString.match(regex);
+    const stringsWithoutDivs = matches.map(match => match.replace(/<\/?div>/g, ""));
+    return [...acc, ...stringsWithoutDivs];
+  });
+
   // submits form, both checkButtons and logPurchase
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [amountAsBigInt, personName, purchaseName, checkboxData] });
+    writeAsync({ args: [amountAsBigInt, personName, purchaseName, ...htmlStringToString] });
   }
 
   function handleCheckbox(name: string) {
@@ -28,15 +36,16 @@ export const AddPurchase = () => {
     });
   }
 
-  // this is for the checkButton submition
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "logPurchase",
-    args: [amountAsBigInt, personName, purchaseName, checkboxData],
+    args: [amountAsBigInt, personName, purchaseName, ...htmlStringToString],
     onBlockConfirmation: txnReceipt => {
-      console.log("game created", txnReceipt.blockHash);
+      console.log("purchase logged", txnReceipt.blockHash);
     },
   });
+
+  console.log("strings: ", htmlStringToString);
 
   // start loading people from smart contract
   const { data: peopleObject } = useScaffoldContractRead({
@@ -87,8 +96,8 @@ export const AddPurchase = () => {
                     type="checkbox"
                     className="checkbox"
                     onChange={() => {
-                      const stringName: string = name.toString();
-                      handleCheckbox(stringName);
+                      const jsxAsString = ReactDOMServer.renderToString(name);
+                      handleCheckbox(jsxAsString);
                     }}
                   />
                   {name}

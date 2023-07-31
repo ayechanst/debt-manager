@@ -49,10 +49,9 @@ contract YourContract {
 		return newEdge;
 	}
 
-	// this function needs to divide the amount and make edges for each person
-	// we could also loop over the array and assign people balances according to their names
 	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries) public {
 		uint256 numOfPeople = beneficiaries.length;
+		require(numOfPeople > 0, "division by 0");
 		uint256 dividedCost = debtAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
 			string memory beneficiary = beneficiaries[i];
