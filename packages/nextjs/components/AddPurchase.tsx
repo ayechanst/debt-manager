@@ -11,17 +11,17 @@ export const AddPurchase = () => {
   const amountAsBigInt = BigInt(purchaseAmount);
   const [checkboxData, setCheckboxData] = useState<string[]>([]);
 
-  const htmlStringToString = checkboxData.reduce((acc, htmlString) => {
+  const htmlStringToString = checkboxData.flatMap(htmlString => {
     const regex = /<div>(.*?)<\/div>/g;
     const matches = htmlString.match(regex);
     const stringsWithoutDivs = matches.map(match => match.replace(/<\/?div>/g, ""));
-    return [...acc, ...stringsWithoutDivs];
+    return stringsWithoutDivs;
   });
 
   // submits form, both checkButtons and logPurchase
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [amountAsBigInt, personName, purchaseName, ...htmlStringToString] });
+    writeAsync({ args: [amountAsBigInt, personName, purchaseName, htmlStringToString] });
   }
 
   function handleCheckbox(name: string) {
@@ -39,13 +39,11 @@ export const AddPurchase = () => {
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "logPurchase",
-    args: [amountAsBigInt, personName, purchaseName, ...htmlStringToString],
+    args: [amountAsBigInt, personName, purchaseName, htmlStringToString],
     onBlockConfirmation: txnReceipt => {
       console.log("purchase logged", txnReceipt.blockHash);
     },
   });
-
-  console.log("strings: ", htmlStringToString);
 
   // start loading people from smart contract
   const { data: peopleObject } = useScaffoldContractRead({
