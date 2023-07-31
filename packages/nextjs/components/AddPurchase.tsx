@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -18,8 +18,12 @@ export const AddPurchase = () => {
   // checkBoxData is array
   const [checkboxData, setCheckboxData] = useState<CheckboxData[]>([]);
 
-  function handleCheck(name: string) {
-    setCheckboxData(prevData => prevData.concat({ name }));
+  function handleCheck() {
+const labelRef = useRef("")
+      const labelInnerHTML = labelRef.current.innerHTML;
+    setCheckboxData(prevData => prevData.concat({ labelInnerHTML }));
+
+      }
   }
 
   // submits form, both checkButtons and logPurchase
@@ -73,18 +77,9 @@ export const AddPurchase = () => {
             />
             {listItems.map((name, index) => (
               <div key={index}>
-                <label className="flex">
+                <label className="flex" ref={labelRef}>
                   {/* make this fill out formData depending on who is checked */}
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    onChange={() => {
-                      handleCheck(name);
-                      {
-                        /* fix the fact we can pass name as an arg */
-                      }
-                    }}
-                  />
+                  <input type="checkbox" id="{name}" className="checkbox" onChange={handleCheck} />
                   {name}
                 </label>
               </div>
