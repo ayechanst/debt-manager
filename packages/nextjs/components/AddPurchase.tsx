@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -8,23 +8,10 @@ interface CheckboxData {
 }
 
 export const AddPurchase = () => {
-  // first chooseBeneficiaries
-  // second log purchase
-
+  const people: string[] = [];
   const [personName, setPersonName] = useState("");
   const [purchaseName, setPurchaseName] = useState("");
-  const people: string[] = [];
-
-  // checkBoxData is array
   const [checkboxData, setCheckboxData] = useState<CheckboxData[]>([]);
-
-  function handleCheck() {
-const labelRef = useRef("")
-      const labelInnerHTML = labelRef.current.innerHTML;
-    setCheckboxData(prevData => prevData.concat({ labelInnerHTML }));
-
-      }
-  }
 
   // submits form, both checkButtons and logPurchase
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -32,15 +19,16 @@ const labelRef = useRef("")
   }
 
   // this is for the checkButton submition
-  const { submitChecks } = useScaffoldContractWrite({
+  const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "chooseBeneficiaries",
-    args: [checkboxData],
+    args: [],
     onBlockConfirmation: txnReceipt => {
       console.log("game created", txnReceipt.blockHash);
     },
   });
 
+  // start loading people from smart contract
   const { data: peopleObject } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "getPeople",
@@ -56,6 +44,7 @@ const labelRef = useRef("")
   const listItems: JSX.Element[] = people.map(person => {
     return <div key={person}>{person}</div>;
   });
+  // end loading people from smart contract
 
   return (
     <>
@@ -77,9 +66,8 @@ const labelRef = useRef("")
             />
             {listItems.map((name, index) => (
               <div key={index}>
-                <label className="flex" ref={labelRef}>
-                  {/* make this fill out formData depending on who is checked */}
-                  <input type="checkbox" id="{name}" className="checkbox" onChange={handleCheck} />
+                <label className="flex">
+                  <input type="checkbox" className="checkbox" />
                   {name}
                 </label>
               </div>

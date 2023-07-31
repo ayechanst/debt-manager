@@ -19,9 +19,6 @@ contract YourContract {
 	Person[] nodes;
 	// all transactions go here
 	Edge[] edges;
-	// beneficiaries
-	mapping(string => string[]) beneficiaries;
-
 
 	// the node
 	struct Person {
@@ -33,7 +30,7 @@ contract YourContract {
 	struct Edge {
 		string nameOfBuyer;
 		string nameOfBeneficiary;
-		uint256 amount;
+		uint256 debtAmount;
 	}
 
 	function createPerson(string memory personName) public {
@@ -42,38 +39,22 @@ contract YourContract {
 		nodes.push(newPerson);
 	}
 
-	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, uint256 amount) public returns (Edge memory) {
+	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 debtAmount) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.nameOfBeneficiary = nameOfBeneficiary;
-		newEdge.amount = amount;
+		newEdge.debtAmount = debtAmount;
 		return newEdge;
-	}
-
-	function chooseBeneficiaries(string memory purchaseName, string memory p1) public {
-		beneficiaries[purchaseName] = [p1];
-	}
-	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2) public {
-		beneficiaries[purchaseName] = [p1, p2];
-	}
-	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2, string memory p3) public {
-		beneficiaries[purchaseName] = [p1, p2, p3];
-	}
-	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2, string memory p3, string memory p4) public {
-		beneficiaries[purchaseName] = [p1, p2, p3, p4];
-	}
-	function chooseBeneficiaries(string memory purchaseName, string memory p1, string memory p2, string memory p3, string memory p4, string memory p5) public {
-		beneficiaries[purchaseName] = [p1, p2, p3, p4, p5];
 	}
 
 	// this function needs to divide the amount and make edges for each person
 	// we could also loop over the array and assign people balances according to their names
-	function logPurchase(uint256 amount, string memory nameOfBuyer, string memory purchaseName) public {
-		uint256 numOfPeople = beneficiaries[purchaseName].length;
-		uint256 dividedCost = amount / numOfPeople;
+	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries) public {
+		uint256 numOfPeople = beneficiaries.length;
+		uint256 dividedCost = debtAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
-			string memory person = beneficiaries[purchaseName][i];
-			Edge memory newEdge = createEdge(nameOfBuyer, person, dividedCost);
+			string memory beneficiary = beneficiaries[i];
+			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, dividedCost);
 			edges.push(newEdge);
 		}
 	}
