@@ -1,5 +1,6 @@
 import React from "react";
 import { DataCard } from "../components/DataCard";
+import ReactDOMServer from "react-dom/server";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 // this component might not be displayed depending on how things go
@@ -18,9 +19,10 @@ export const Data: React.FC = () => {
     }
   }
 
-  const listItems: JSX.Element[] = people.map(person => {
-    return <li key={person}>{person}</li>;
-  });
+  /* const listItems: JSX.Element[] = people.map(person => {
+   *   return <li key={person}>{person}</li>;
+   * });
+   */
 
   // this is an object with one array full of Edge Structs
   const { data: debtObject } = useScaffoldContractRead({
@@ -33,8 +35,10 @@ export const Data: React.FC = () => {
   function getSomeonesDebt(person: string) {
     let accruedDebt = 0;
     debts?.forEach(edge => {
-      if (edge.nameOfBeneficiary === person) {
-        accruedDebt += Number(edge.debtAmount);
+      if (person !== edge.nameOfBuyer) {
+        if (edge.nameOfBeneficiary === person) {
+          accruedDebt += Number(edge.debtAmount);
+        }
       }
     });
     return accruedDebt;
@@ -44,8 +48,7 @@ export const Data: React.FC = () => {
     let purchaseAmount = 0;
     debts?.forEach(edge => {
       if (edge.nameOfBuyer === person) {
-        // readind too many spendings
-        purchaseAmount += Number(edge.purchaseAmount);
+        purchaseAmount += Number(edge.debtAmount);
       }
     });
     return purchaseAmount;
@@ -54,7 +57,7 @@ export const Data: React.FC = () => {
   function getSomeonesBalance(person: string) {
     const debt = getSomeonesDebt(person);
     const spendings = getSomeonesPurchases(person);
-    return debt - spendings;
+    return spendings - debt;
   }
 
   const ayechansDebt = getSomeonesDebt("ayechan");
@@ -64,13 +67,15 @@ export const Data: React.FC = () => {
   console.log("debts obj:", debts);
   console.log("ayechan's debt", ayechansDebt);
   console.log("ayechan's spendings", ayechansPurchases);
-  console.log("ayechan's debt", ayechansBalance);
+  console.log("ayechan's balance", ayechansBalance);
 
   return (
     <>
-      {/* for each person render a card with info */}
-      <DataCard />
-      <ul>{listItems}</ul>
+      {people.map(person => {
+        const personBalance = getSomeonesBalance(person);
+        const personSpendings = getSomeonesPurchases(person);
+        return <DataCard name={person} balance={personBalance} spendings={personSpendings} />;
+      })}
     </>
   );
 };
