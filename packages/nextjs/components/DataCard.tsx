@@ -4,9 +4,9 @@ export const DataCard = () => {
       <div>
         <div className="collapse bg-base-200">
           <input type="checkbox" />
-          <div className="collapse-title text-xl font-medium">Click me to show/hide content</div>
+          <div className="collapse-title text-xl font-medium">Name: </div>
           <div className="collapse-content">
-            <p>hello</p>
+            <p>Balance: </p>
           </div>
         </div>
       </div>

@@ -69,7 +69,9 @@ contract YourContract {
 		return peopleNames;
 	}
 
-
+	function getDebts() public view returns (Edge[] memory) {
+		return edges;
+	}
 
 
 

@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+          address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
           abi: [
             {
               inputs: [
@@ -74,6 +74,41 @@ const contracts = {
               name: "createPerson",
               outputs: [],
               stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getDebts",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "nameOfBuyer",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "nameOfBeneficiary",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "purchaseName",
+                      type: "string",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "debtAmount",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct YourContract.Edge[]",
+                  name: "",
+                  type: "tuple[]",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
             {

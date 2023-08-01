@@ -22,6 +22,16 @@ export const Data: React.FC = () => {
     return <li key={person}>{person}</li>;
   });
 
+  // this is an object with one array full of Edge Structs
+  const { data: debtObject } = useScaffoldContractRead({
+    contractName: "YourContract",
+    functionName: "getDebts",
+  });
+
+  const debts = debtObject;
+
+  console.log(debts);
+
   return (
     <>
       {/* for each person render a card with info */}
