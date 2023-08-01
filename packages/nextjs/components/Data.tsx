@@ -40,19 +40,31 @@ export const Data: React.FC = () => {
     return accruedDebt;
   }
 
-    function getSomeonesPurchases(person: string) {
-        let purchaseAmount = 0;
-        debts?.forEach((edge) => {
-            if (edge.nameOfBuyer === person) {
-                purchaseAmount +=
-            }
-        })
-    }
+  function getSomeonesPurchases(person: string) {
+    let purchaseAmount = 0;
+    debts?.forEach(edge => {
+      if (edge.nameOfBuyer === person) {
+        // readind too many spendings
+        purchaseAmount += Number(edge.purchaseAmount);
+      }
+    });
+    return purchaseAmount;
+  }
+
+  function getSomeonesBalance(person: string) {
+    const debt = getSomeonesDebt(person);
+    const spendings = getSomeonesPurchases(person);
+    return debt - spendings;
+  }
 
   const ayechansDebt = getSomeonesDebt("ayechan");
+  const ayechansPurchases = getSomeonesPurchases("ayechan");
+  const ayechansBalance = getSomeonesBalance("ayechan");
 
   console.log("debts obj:", debts);
   console.log("ayechan's debt", ayechansDebt);
+  console.log("ayechan's spendings", ayechansPurchases);
+  console.log("ayechan's debt", ayechansBalance);
 
   return (
     <>

@@ -31,6 +31,7 @@ contract YourContract {
 		string nameOfBuyer;
 		string nameOfBeneficiary;
 		string purchaseName;
+		uint256 purchaseAmount;
 		uint256 debtAmount;
 	}
 
@@ -40,11 +41,12 @@ contract YourContract {
 		nodes.push(newPerson);
 	}
 
-	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 debtAmount) public returns (Edge memory) {
+	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 purchaseAmount, uint256 debtAmount) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.nameOfBeneficiary = nameOfBeneficiary;
 		newEdge.purchaseName = purchaseName;
+		newEdge.purchaseAmount = purchaseAmount;
 		newEdge.debtAmount = debtAmount;
 		return newEdge;
 	}
@@ -55,7 +57,7 @@ contract YourContract {
 		uint256 dividedCost = debtAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
 			string memory beneficiary = beneficiaries[i];
-			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, dividedCost);
+			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, debtAmount, dividedCost);
 			edges.push(newEdge);
 		}
 	}

@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
           abi: [
             {
               inputs: [
@@ -23,6 +23,11 @@ const contracts = {
                   internalType: "string",
                   name: "purchaseName",
                   type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "purchaseAmount",
+                  type: "uint256",
                 },
                 {
                   internalType: "uint256",
@@ -48,6 +53,11 @@ const contracts = {
                       internalType: "string",
                       name: "purchaseName",
                       type: "string",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "purchaseAmount",
+                      type: "uint256",
                     },
                     {
                       internalType: "uint256",
@@ -96,6 +106,11 @@ const contracts = {
                       internalType: "string",
                       name: "purchaseName",
                       type: "string",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "purchaseAmount",
+                      type: "uint256",
                     },
                     {
                       internalType: "uint256",
