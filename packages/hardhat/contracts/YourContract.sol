@@ -15,11 +15,14 @@ import "hardhat/console.sol";
 contract YourContract {
 
 
-	// graph data structure
-	Person[] nodes;
-	// all transactions go here
-	Edge[] edges;
 
+	struct Account {
+		// graph data structure
+		Person[] nodes;
+		// all transactions go here
+		Edge[] edges;
+
+	}
 	// the node
 	struct Person {
 		string name;
