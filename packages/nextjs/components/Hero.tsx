@@ -2,7 +2,12 @@ import { useRouter } from "next/router";
 
 export const Hero = () => {
   const router = useRouter();
-  function handleClick() {
+
+  function handleGetStarted() {
+    router.push("./makeIgub");
+  }
+
+  function handleLogin() {
     router.push("./home");
   }
 
@@ -14,9 +19,15 @@ export const Hero = () => {
           <p className="py-6">
             Short for "I'll get you back", iGUB is a decentralized application for keeping track of debt among friends!
           </p>
-          <button onClick={handleClick} className="btn btn-primary">
-            Get Started
-          </button>
+          <div className="space-x-4">
+            <button onClick={handleGetStarted} className="btn btn-primary">
+              Get Started
+            </button>
+
+            <button onClick={handleLogin} className="btn btn-primary">
+              Login
+            </button>
+          </div>
         </div>
       </div>
     </div>

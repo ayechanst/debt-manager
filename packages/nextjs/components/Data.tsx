@@ -3,7 +3,6 @@ import { DataCard } from "../components/DataCard";
 import ReactDOMServer from "react-dom/server";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-// this component might not be displayed depending on how things go
 export const Data: React.FC = () => {
   const people: string[] = [];
 
@@ -18,11 +17,6 @@ export const Data: React.FC = () => {
       people.push(peopleObject?.[i]);
     }
   }
-
-  /* const listItems: JSX.Element[] = people.map(person => {
-   *   return <li key={person}>{person}</li>;
-   * });
-   */
 
   // this is an object with one array full of Edge Structs
   const { data: debtObject } = useScaffoldContractRead({
@@ -59,15 +53,6 @@ export const Data: React.FC = () => {
     const spendings = getSomeonesPurchases(person);
     return spendings - debt;
   }
-
-  const ayechansDebt = getSomeonesDebt("ayechan");
-  const ayechansPurchases = getSomeonesPurchases("ayechan");
-  const ayechansBalance = getSomeonesBalance("ayechan");
-
-  console.log("debts obj:", debts);
-  console.log("ayechan's debt", ayechansDebt);
-  console.log("ayechan's spendings", ayechansPurchases);
-  console.log("ayechan's balance", ayechansBalance);
 
   return (
     <>
