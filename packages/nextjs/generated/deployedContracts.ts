@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
           abi: [
             {
               inputs: [
@@ -64,6 +64,11 @@ const contracts = {
                       name: "debtAmount",
                       type: "uint256",
                     },
+                    {
+                      internalType: "address",
+                      name: "edgeId",
+                      type: "address",
+                    },
                   ],
                   internalType: "struct YourContract.Edge",
                   name: "",
@@ -79,6 +84,11 @@ const contracts = {
                   internalType: "string",
                   name: "personName",
                   type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "walletId",
+                  type: "address",
                 },
               ],
               name: "createPerson",
@@ -116,6 +126,11 @@ const contracts = {
                       internalType: "uint256",
                       name: "debtAmount",
                       type: "uint256",
+                    },
+                    {
+                      internalType: "address",
+                      name: "edgeId",
+                      type: "address",
                     },
                   ],
                   internalType: "struct YourContract.Edge[]",

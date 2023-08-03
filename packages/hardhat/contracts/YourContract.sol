@@ -22,6 +22,8 @@ contract YourContract {
 	// the node
 	struct Person {
 		string name;
+		address personHostId;
+		address walletId;
 	}
 
 	struct Edge {
@@ -30,14 +32,18 @@ contract YourContract {
 		string purchaseName;
 		uint256 purchaseAmount;
 		uint256 debtAmount;
+		address edgeId;
 	}
 
-	function createPerson(string memory personName) public {
+	function createPerson(string memory personName, address walletId) public {
 		Person memory newPerson;
 		newPerson.name = personName;
+		newPerson.personHostId = msg.sender;
+		newPerson.walletId = walletId;
 		nodes.push(newPerson);
 	}
 
+	    // only account members can do this
 	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 purchaseAmount, uint256 debtAmount) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
@@ -45,9 +51,12 @@ contract YourContract {
 		newEdge.purchaseName = purchaseName;
 		newEdge.purchaseAmount = purchaseAmount;
 		newEdge.debtAmount = debtAmount;
+		newEdge.edgeId = msg.sender;
 		return newEdge;
 	}
 
+
+	// require that person making the transaction is a member of this account
 	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries) public {
 		uint256 numOfPeople = beneficiaries.length;
 		require(numOfPeople > 0, "division by 0");
@@ -68,8 +77,15 @@ contract YourContract {
 		return peopleNames;
 	}
 
+	// this will only return edges created by a group of people
 	function getDebts() public view returns (Edge[] memory) {
-		return edges;
+		Edge[] memory accountEdges;
+		for (uint256 i = 0; i < edges.length; i++) {
+			if (edges[i].edgeId == msg.sender) {
+				accountEdges[i] = edges[i];
+			}
+		}
+		return accountEdges;
 	}
 
 

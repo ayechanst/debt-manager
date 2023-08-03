@@ -3,10 +3,12 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const AddPerson = () => {
   const [personName, setPersonName] = useState("");
+  const [walletId, setWalletId] = useState("");
+
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "createPerson",
-    args: [personName],
+    args: [personName, walletId],
     onBlockConfirmation: txnReceipt => {
       console.log("person created", txnReceipt.blockHash);
     },
@@ -14,7 +16,7 @@ export const AddPerson = () => {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [personName] });
+    writeAsync({ args: [personName, walletId] });
   }
 
   return (
@@ -23,14 +25,25 @@ export const AddPerson = () => {
         <div className="card-body">
           <h2 className="card-title">Add Someone!</h2>
           <form onSubmit={handleSubmit}>
-            <input
-              className="input input-bordered w-full max-w-xs"
-              id="createGameInput"
-              value={personName}
-              onChange={e => setPersonName(e.target.value)}
-              type="string"
-              required
-            />
+            <div className="flex space-y-3 flex-col">
+              <input
+                className="input input-bordered w-full max-w-xs"
+                placeholder="Person's name"
+                id="createGameInput"
+                value={personName}
+                onChange={e => setPersonName(e.target.value)}
+                type="string"
+                required
+              />
+              <input
+                className="input input-bordered w-full max-w-xs"
+                placeholder="Person's wallet address"
+                id="createGameInput"
+                value={walletId}
+                onChange={e => setWalletId(e.target.value)}
+                required
+              />
+            </div>
             <div className="py-5">
               <button type="submit" className="btn">
                 Add
