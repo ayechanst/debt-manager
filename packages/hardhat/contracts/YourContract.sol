@@ -14,22 +14,16 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 
+	// graph data structure
+	Person[] nodes;
+	// all transactions go here
+	Edge[] edges;
 
-
-	struct Account {
-		// graph data structure
-		Person[] nodes;
-		// all transactions go here
-		Edge[] edges;
-
-	}
 	// the node
 	struct Person {
 		string name;
-		// a person can be connected with any amount of people
 	}
 
-	// an edge will be created for each beneficiary and "given to them"
 	struct Edge {
 		string nameOfBuyer;
 		string nameOfBeneficiary;
@@ -77,17 +71,6 @@ contract YourContract {
 	function getDebts() public view returns (Edge[] memory) {
 		return edges;
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
