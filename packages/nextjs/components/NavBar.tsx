@@ -54,9 +54,13 @@ export const NavBar = () => {
           </div>
         </div>
         {/* Page content here */}
-        <Data />
-        {addPerson && <AddPerson />}
-        {addPurchase && <AddPurchase />}
+        <div className="flex flex-row-reverse">
+          <Data />
+          <div className="flex flex-col">
+            {addPerson && <AddPerson />}
+            {addPurchase && <AddPurchase />}
+          </div>
+        </div>
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>

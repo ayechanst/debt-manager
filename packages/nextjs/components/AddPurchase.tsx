@@ -11,17 +11,19 @@ export const AddPurchase = () => {
   const amountAsBigInt = BigInt(purchaseAmount);
   const [checkboxData, setCheckboxData] = useState<string[]>([]);
 
-  const htmlStringToString = checkboxData.flatMap(htmlString => {
-    const regex = /<div>(.*?)<\/div>/g;
-    const matches = htmlString.match(regex);
-    const stringsWithoutDivs = matches.map(match => match.replace(/<\/?div>/g, ""));
-    return stringsWithoutDivs;
-  });
+  /* const htmlStringToString = checkboxData.flatMap(htmlString => {
+   *   const regex = /<div>(.*?)<\/div>/g;
+   *   const matches = htmlString.match(regex);
+   *   const stringsWithoutDivs = matches.map(match => match.replace(/<\/?div>/g, ""));
+   *   return stringsWithoutDivs;
+   * });
+   */
 
   // submits form, both checkButtons and logPurchase
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [amountAsBigInt, personName, purchaseName, htmlStringToString] });
+    /* writeAsync({ args: [amountAsBigInt, personName, purchaseName, chec] }); */
+    writeAsync();
   }
 
   function handleCheckbox(name: string) {
@@ -39,7 +41,7 @@ export const AddPurchase = () => {
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "logPurchase",
-    args: [amountAsBigInt, personName, purchaseName, htmlStringToString],
+    args: [amountAsBigInt, personName, purchaseName, checkboxData],
     onBlockConfirmation: txnReceipt => {
       console.log("purchase logged", txnReceipt.blockHash);
     },
@@ -58,9 +60,9 @@ export const AddPurchase = () => {
     }
   }
 
-  const listItems: JSX.Element[] = people.map(person => {
-    return <div key={person}>{person}</div>;
-  });
+  /* const listItems: JSX.Element[] = people.map(person => {
+   *   return <div key={person}>{person}</div>;
+   * }); */
   // end loading people from smart contract
 
   return (
@@ -87,15 +89,14 @@ export const AddPurchase = () => {
               value={personName}
               onChange={e => setPersonName(e.target.value)}
             />
-            {listItems.map((name, index) => (
+            {peopleObject?.map((name, index) => (
               <div key={index}>
                 <label className="flex">
                   <input
                     type="checkbox"
                     className="checkbox"
                     onChange={() => {
-                      const jsxAsString = ReactDOMServer.renderToString(name);
-                      handleCheckbox(jsxAsString);
+                      handleCheckbox(name);
                     }}
                   />
                   {name}

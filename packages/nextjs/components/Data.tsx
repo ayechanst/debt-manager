@@ -25,6 +25,7 @@ export const Data: React.FC = () => {
   });
 
   const debts = debtObject;
+  console.log(debtObject);
 
   function getSomeonesDebt(person: string) {
     let accruedDebt = 0;

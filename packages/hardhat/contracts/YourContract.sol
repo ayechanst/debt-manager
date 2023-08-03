@@ -51,7 +51,6 @@ contract YourContract {
 		newEdge.purchaseName = purchaseName;
 		newEdge.purchaseAmount = purchaseAmount;
 		newEdge.debtAmount = debtAmount;
-		newEdge.edgeId = msg.sender;
 		return newEdge;
 	}
 
@@ -64,6 +63,7 @@ contract YourContract {
 		for (uint256 i = 0; i < numOfPeople; i++) {
 			string memory beneficiary = beneficiaries[i];
 			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, debtAmount, dividedCost);
+			newEdge.edgeId = msg.sender;
 			edges.push(newEdge);
 		}
 	}
@@ -82,6 +82,7 @@ contract YourContract {
 		Edge[] memory accountEdges;
 		for (uint256 i = 0; i < edges.length; i++) {
 			if (edges[i].edgeId == msg.sender) {
+				// or also if msg.sender is part of the group
 				accountEdges[i] = edges[i];
 			}
 		}
