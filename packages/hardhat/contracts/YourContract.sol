@@ -14,15 +14,8 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 
-	// graph data structure
-	Person[] nodes;
-	// all transactions go here
-	Edge[] edges;
-
 	struct Person {
 		string name;
-		address personHostId;
-		address walletId;
 	}
 
 	struct Edge {
@@ -31,27 +24,35 @@ contract YourContract {
 		string purchaseName;
 		uint256 purchaseAmount;
 		uint256 debtAmount;
-
 	}
 
 	struct Group {
 		string groupName;
+		address groupKey;
 		address groupId;
+		// string[] people in group?
 	}
 
 		// the graphs are stored in here
-	mapping(address => Edge[]) graphs;
+	mapping(uint256 => Edge[]) graph;
+	mapping(address => Group) group;
+	mapping(address => Person) people;
 
-	mapping(address => Group[]) keys;
+	address[] groupKeys;
 
-	mapping(address => Person[]) people;
+	// group name should display on the UI, then we can grab it later?
+	function createGroup(string memory groupName) public {
+		// users should either be able to create a group or join one on login
+		Group memory newGroup;
+		newGroup.groupName = groupName;
+		address groupId = address(bytes20(keccak256(abi.encode(groupName))));
+		group[groupId] = newGroup;
+		groupKeys.push(groupId);
+	}
 
-	function createPerson(string memory personName, address walletId) public {
+	function createPerson(string memory personName) public {
 		Person memory newPerson;
 		newPerson.name = personName;
-		newPerson.personHostId = msg.sender;
-		newPerson.walletId = walletId;
-		nodes.push(newPerson);
 	}
 
 	    // only account members can do this
@@ -68,37 +69,39 @@ contract YourContract {
 
 	// require that person making the transaction is a member of this account
 	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries) public {
+		// find a unique identifier to determine what group this is (key)
 		uint256 numOfPeople = beneficiaries.length;
 		require(numOfPeople > 0, "division by 0");
 		uint256 dividedCost = debtAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
 			string memory beneficiary = beneficiaries[i];
 			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, debtAmount, dividedCost);
-			newEdge.edgeId = msg.sender;
-			edges.push(newEdge);
+			// this will push these edges to an array of edges specific to the key
+			//graph[address] = newEdge;
+			// edges.push(newEdge);
 		}
 	}
 
-	function getPeople() public view returns (string[] memory) {
-		uint256 numOfPeople = nodes.length;
-		string[] memory peopleNames = new string[](numOfPeople);
-		for (uint256 i = 0; i < numOfPeople; i++) {
-			peopleNames[i] = nodes[i].name;
-		}
-		return peopleNames;
-	}
+	// function getPeople() public view returns (string[] memory) {
+	// 	uint256 numOfPeople = nodes.length;
+	// 	string[] memory peopleNames = new string[](numOfPeople);
+	// 	for (uint256 i = 0; i < numOfPeople; i++) {
+	// 		peopleNames[i] = nodes[i].name;
+	// 	}
+	// 	return peopleNames;
+	// }
 
 	// this will only return edges created by a group of people
-	function getDebts() public view returns (Edge[] memory) {
-		Edge[] memory accountEdges;
-		for (uint256 i = 0; i < edges.length; i++) {
-			if (edges[i].edgeId == msg.sender) {
-				// or also if msg.sender is part of the group
-				accountEdges[i] = edges[i];
-			}
-		}
-		return accountEdges;
-	}
+	// function getDebts() public view returns (Edge[] memory) {
+	// 	Edge[] memory accountEdges;
+	// 	for (uint256 i = 0; i < edges.length; i++) {
+	// 		if (edges[i].edgeId == msg.sender) {
+	// 			// or also if msg.sender is part of the group
+	// 			accountEdges[i] = edges[i];
+	// 		}
+	// 	}
+	// 	return accountEdges;
+	// }
 
 
 }
