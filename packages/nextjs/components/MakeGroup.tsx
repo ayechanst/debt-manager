@@ -11,7 +11,7 @@ export const MakeGroup = () => {
     functionName: "createGroup",
     args: [groupName],
     onBlockConfirmation: txnReceipt => {
-      console.log("game created", txnReceipt.blockHash);
+      console.log("group created", txnReceipt.blockHash);
     },
   });
 

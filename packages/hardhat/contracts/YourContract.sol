@@ -54,6 +54,7 @@ contract YourContract {
 		groupKeys.push(freshKey);
 	}
 
+	// this function will not be this simple
 	function getGroups() public view returns (Group[] memory) {
 		Group[] memory ownersGroups;
 		for (uint256 i = 0; i < groupKeys.length; i++) {
