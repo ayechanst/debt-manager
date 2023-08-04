@@ -4,25 +4,15 @@ import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const AddPurchase = () => {
-  const people: string[] = [];
   const [personName, setPersonName] = useState("");
   const [purchaseName, setPurchaseName] = useState("");
   const [purchaseAmount, setPurchaseAmount] = useState(0);
   const amountAsBigInt = BigInt(purchaseAmount);
   const [checkboxData, setCheckboxData] = useState<string[]>([]);
 
-  /* const htmlStringToString = checkboxData.flatMap(htmlString => {
-   *   const regex = /<div>(.*?)<\/div>/g;
-   *   const matches = htmlString.match(regex);
-   *   const stringsWithoutDivs = matches.map(match => match.replace(/<\/?div>/g, ""));
-   *   return stringsWithoutDivs;
-   * });
-   */
-
   // submits form, both checkButtons and logPurchase
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    /* writeAsync({ args: [amountAsBigInt, personName, purchaseName, chec] }); */
     writeAsync();
   }
 
@@ -53,18 +43,6 @@ export const AddPurchase = () => {
     functionName: "getPeople",
   });
 
-  if (peopleObject) {
-    const objLength = peopleObject?.length;
-    for (let i = 0; i < objLength; i++) {
-      people.push(peopleObject?.[i]);
-    }
-  }
-
-  /* const listItems: JSX.Element[] = people.map(person => {
-   *   return <div key={person}>{person}</div>;
-   * }); */
-  // end loading people from smart contract
-
   return (
     <>
       <div className="card w-96 bg-base-100 shadow-xl">
@@ -92,13 +70,7 @@ export const AddPurchase = () => {
             {peopleObject?.map((name, index) => (
               <div key={index}>
                 <label className="flex">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    onChange={() => {
-                      handleCheckbox(name);
-                    }}
-                  />
+                  <input type="checkbox" className="checkbox" onChange={() => handleCheckbox(name)} />
                   {name}
                 </label>
               </div>

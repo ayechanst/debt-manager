@@ -19,7 +19,6 @@ contract YourContract {
 	// all transactions go here
 	Edge[] edges;
 
-	// the node
 	struct Person {
 		string name;
 		address personHostId;
@@ -32,8 +31,20 @@ contract YourContract {
 		string purchaseName;
 		uint256 purchaseAmount;
 		uint256 debtAmount;
-		address edgeId;
+
 	}
+
+	struct Group {
+		string groupName;
+		address groupId;
+	}
+
+		// the graphs are stored in here
+	mapping(address => Edge[]) graphs;
+
+	mapping(address => Group[]) keys;
+
+	mapping(address => Person[]) people;
 
 	function createPerson(string memory personName, address walletId) public {
 		Person memory newPerson;
