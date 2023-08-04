@@ -30,11 +30,13 @@ contract YourContract {
 		string groupName;
 		address groupKey;
 		address groupId;
+		address groupOwner;
 		// string[] people in group?
 	}
 
-		// the graphs are stored in here
+	// the graphs are stored in here
 	mapping(uint256 => Edge[]) graph;
+	// groupId => Group Struct
 	mapping(address => Group) group;
 	mapping(address => Person) people;
 
@@ -42,9 +44,9 @@ contract YourContract {
 
 	// group name should display on the UI, then we can grab it later?
 	function createGroup(string memory groupName) public {
-		// users should either be able to create a group or join one on login
 		Group memory newGroup;
 		newGroup.groupName = groupName;
+		newGroup.groupOwner = msg.sender;
 		address groupId = address(bytes20(keccak256(abi.encode(groupName))));
 		group[groupId] = newGroup;
 		groupKeys.push(groupId);

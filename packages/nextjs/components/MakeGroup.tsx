@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const MakeGroup = () => {
+  const router = useRouter();
   const [groupName, setGroupName] = useState("");
 
   const { writeAsync } = useScaffoldContractWrite({
@@ -16,6 +18,7 @@ export const MakeGroup = () => {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     writeAsync({ args: [groupName] });
+    router.push("./home");
   }
 
   return (
