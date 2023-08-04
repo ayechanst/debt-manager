@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { AddPerson } from "../components/AddPerson";
 import { AddPurchase } from "../components/AddPurchase";
-import { Data } from "../components/Data";
 import { SelectGroup } from "../components/SelectGroup";
 
 const Main = () => {
@@ -44,7 +43,6 @@ const Main = () => {
           <SelectGroup />
           <div className="flex flex-row-reverse">
             {/* depending on what grou is selected, render the correct data */}
-            <Data />
             <div className="flex flex-col">
               {addPerson && <AddPerson />}
               {addPurchase && <AddPurchase />}

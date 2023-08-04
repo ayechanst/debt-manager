@@ -28,28 +28,40 @@ contract YourContract {
 
 	struct Group {
 		string groupName;
-		address groupKey;
-		address groupId;
 		address groupOwner;
+		uint256 groupKey;
 		// string[] people in group?
 	}
 
 	// the graphs are stored in here
 	mapping(uint256 => Edge[]) graph;
 	// groupId => Group Struct
-	mapping(address => Group) group;
+	mapping(uint256 => Group) groups;
 	mapping(address => Person) people;
 
-	address[] groupKeys;
+	uint256[] groupKeys;
+	uint256 currentKey = 0;
 
 	// group name should display on the UI, then we can grab it later?
 	function createGroup(string memory groupName) public {
 		Group memory newGroup;
+		uint256 freshKey = currentKey + 1;
+		currentKey + 1;
 		newGroup.groupName = groupName;
 		newGroup.groupOwner = msg.sender;
-		address groupId = address(bytes20(keccak256(abi.encode(groupName))));
-		group[groupId] = newGroup;
-		groupKeys.push(groupId);
+		newGroup.groupKey = freshKey;
+		groups[freshKey] = newGroup;
+		groupKeys.push(freshKey);
+	}
+
+	function getGroups() public view returns (Group[] memory) {
+		Group[] memory ownersGroups;
+		for (uint256 i = 0; i < groupKeys.length; i++) {
+			if (groups[i].groupOwner == msg.sender) {
+				ownersGroups[i] = groups[i];
+			}
+		}
+		return ownersGroups;
 	}
 
 	function createPerson(string memory personName) public {
