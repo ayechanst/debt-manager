@@ -22,15 +22,17 @@ export const SelectGroup = () => {
     /* use props for each group in person's id, render their groups */
     <>
       {groups?.map(group => {
-        const groupName = group.groupName;
-        const numOfPeople = Number(group.numOfPeople);
-        return;
-        <>
-          <button className="bg-white rounded-lg shadow-md p-4 hover:bg-gray-100 cursor-pointer" onClick={handleClick}>
-            <GroupCard name={groupName} numOfPeople={numOfPeople} />
-          </button>
-          ;
-        </>;
+        const nameOfGroup = group.groupName;
+        return (
+          <>
+            <button
+              className="bg-white rounded-lg shadow-md p-4 hover:bg-gray-100 cursor-pointer"
+              onClick={handleClick}
+            >
+              <GroupCard nameOfGroup={nameOfGroup} />
+            </button>
+          </>
+        );
       })}
     </>
   );

@@ -48,7 +48,6 @@ contract YourContract {
 		uint256 freshKey = currentKey + 1;
 		currentKey = freshKey;
 		newGroup.groupName = groupName;
-		newGroup.numOfPeople = 0;
 		newGroup.groupOwner = person;
 		newGroup.groupKey = freshKey;
 		groups[freshKey] = newGroup;
