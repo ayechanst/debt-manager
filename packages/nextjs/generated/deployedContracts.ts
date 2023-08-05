@@ -80,6 +80,11 @@ const contracts = {
                   name: "groupName",
                   type: "string",
                 },
+                {
+                  internalType: "address",
+                  name: "person",
+                  type: "address",
+                },
               ],
               name: "createGroup",
               outputs: [],
@@ -100,7 +105,13 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "sender",
+                  type: "address",
+                },
+              ],
               name: "getGroups",
               outputs: [
                 {

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { useAccount } from "wagmi";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const MakeGroup = () => {
+  const { address } = useAccount();
   const router = useRouter();
   const [groupName, setGroupName] = useState("");
 
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "createGroup",
-    args: [groupName],
+    args: [groupName, address],
     onBlockConfirmation: txnReceipt => {
       console.log("group created", txnReceipt.blockHash);
     },
@@ -17,7 +19,7 @@ export const MakeGroup = () => {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [groupName] });
+    writeAsync({ args: [groupName, address] });
     router.push("./home");
   }
 

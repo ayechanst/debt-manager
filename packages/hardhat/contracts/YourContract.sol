@@ -30,7 +30,7 @@ contract YourContract {
 		string groupName;
 		address groupOwner;
 		uint256 groupKey;
-		// string[] people in group?
+		string[] groupMembers;
 	}
 
 	// the graphs are stored in here
@@ -43,23 +43,32 @@ contract YourContract {
 	uint256 currentKey = 0;
 
 	// group name should display on the UI, then we can grab it later?
-	function createGroup(string memory groupName) public {
+	function createGroup(string memory groupName, address person) public {
 		Group memory newGroup;
 		uint256 freshKey = currentKey + 1;
-		currentKey + 1;
+		currentKey = freshKey;
 		newGroup.groupName = groupName;
-		newGroup.groupOwner = msg.sender;
+		newGroup.numOfPeople = 0;
+		newGroup.groupOwner = person;
 		newGroup.groupKey = freshKey;
 		groups[freshKey] = newGroup;
 		groupKeys.push(freshKey);
 	}
 
 	// this function will not be this simple
-	function getGroups() public view returns (Group[] memory) {
-		Group[] memory ownersGroups;
+	function getGroups(address sender) public view returns (Group[] memory) {
+		uint256 count = 0;
 		for (uint256 i = 0; i < groupKeys.length; i++) {
-			if (groups[i].groupOwner == msg.sender) {
-				ownersGroups[i] = groups[i];
+			if (groups[groupKeys[i]].groupOwner == sender) {
+				count++;
+			}
+		}
+		Group[] memory ownersGroups = new Group[](count);
+		uint256 index = 0;
+		for (uint256 i = 0; i < groupKeys.length; i++) {
+			if (groups[groupKeys[i]].groupOwner == sender) {
+				ownersGroups[index] = groups[groupKeys[index]];
+				index++;
 			}
 		}
 		return ownersGroups;
