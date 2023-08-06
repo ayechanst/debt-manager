@@ -7,6 +7,8 @@ export const SelectGroup = () => {
   const { address } = useAccount();
 
   function handleClick() {
+    // make this navigate to the group info/Data part
+    // based off the group name maybe render Data.tsx with relevant props
     console.log("cards been clicked");
   }
 
@@ -19,20 +21,21 @@ export const SelectGroup = () => {
   console.log("here our groups", groups);
 
   return (
-    /* use props for each group in person's id, render their groups */
     <>
       {groups?.map(group => {
-        const nameOfGroup = group.groupName;
-        return (
-          <>
-            <button
-              className="bg-white rounded-lg shadow-md p-4 hover:bg-gray-100 cursor-pointer"
-              onClick={handleClick}
-            >
-              <GroupCard nameOfGroup={nameOfGroup} />
-            </button>
-          </>
-        );
+        if (group.groupOwner === address) {
+          const nameOfGroup = group.groupName;
+          return (
+            <>
+              <button
+                className="bg-white rounded-lg shadow-md p-4 hover:bg-gray-100 cursor-pointer"
+                onClick={handleClick}
+              >
+                <GroupCard nameOfGroup={nameOfGroup} />
+              </button>
+            </>
+          );
+        }
       })}
     </>
   );

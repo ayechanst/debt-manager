@@ -49,7 +49,7 @@ const Main = () => {
           {/* Page content here */}
           <SelectGroup />
           <div className="flex flex-row-reverse">
-            {/* depending on what grou is selected, render the correct data */}
+            {/* depending on what group is selected, render the correct data */}
             <div className="flex flex-col">
               {addPerson && <AddPerson />}
               {addPurchase && <AddPurchase />}

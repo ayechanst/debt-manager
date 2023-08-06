@@ -3,6 +3,9 @@ import { DataCard } from "../components/DataCard";
 import ReactDOMServer from "react-dom/server";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
+// this component is in charge or rendering data cards
+// it needs to take in some props from SelectGroup.tsx
+// then display really cool stuff
 export const Data: React.FC = () => {
   const people: string[] = [];
 
