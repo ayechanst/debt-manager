@@ -3,12 +3,11 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 export const AddPerson = () => {
   const [personName, setPersonName] = useState("");
-  const [walletId, setWalletId] = useState("");
 
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "createPerson",
-    args: [personName, walletId],
+    args: [personName],
     onBlockConfirmation: txnReceipt => {
       console.log("person created", txnReceipt.blockHash);
     },
@@ -16,7 +15,7 @@ export const AddPerson = () => {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [personName, walletId] });
+    writeAsync({ args: [personName] });
   }
 
   return (
@@ -33,14 +32,6 @@ export const AddPerson = () => {
                 value={personName}
                 onChange={e => setPersonName(e.target.value)}
                 type="string"
-                required
-              />
-              <input
-                className="input input-bordered w-full max-w-xs"
-                placeholder="Person's wallet address"
-                id="createGameInput"
-                value={walletId}
-                onChange={e => setWalletId(e.target.value)}
                 required
               />
             </div>

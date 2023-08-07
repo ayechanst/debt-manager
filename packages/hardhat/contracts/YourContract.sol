@@ -16,6 +16,8 @@ contract YourContract {
 
 	struct Person {
 		string name;
+		address id;
+		string[] groupMemberOf;
 	}
 
 	struct Edge {
@@ -34,15 +36,16 @@ contract YourContract {
 	}
 
 	// the graphs are stored in here
-	mapping(uint256 => Edge[]) graph;
+	mapping(uint256 => Edge) graph;
 	// groupId => Group Struct
 	mapping(uint256 => Group) groups;
-	mapping(address => Person) people;
+	mapping(uint256 => Person) people;
 
 	uint256[] groupKeys;
 	uint256 currentKey = 0;
+	uint256[] personKeys;
+	uint256 currentPersonKey = 0;
 
-	// group name should display on the UI, then we can grab it later?
 	function createGroup(string memory groupName, address person) public {
 		Group memory newGroup;
 		uint256 freshKey = currentKey + 1;
@@ -54,7 +57,6 @@ contract YourContract {
 		groupKeys.push(freshKey);
 	}
 
-	// this function will not be this simple
 	function getGroups() public view returns (Group[] memory) {
 		Group[] memory allGroups = new Group[](groupKeys.length);
 		for (uint256 i = 0; i < groupKeys.length; i++) {
@@ -65,7 +67,12 @@ contract YourContract {
 
 	function createPerson(string memory personName) public {
 		Person memory newPerson;
+		uint256 freshKey = currentPersonKey + 1;
+		currentPersonKey = freshKey;
 		newPerson.name = personName;
+		newPerson.id = address(bytes20(keccak256(abi.encode(personName, block.number))));
+		people[freshKey] = newPerson;
+		personKeys.push(freshKey);
 	}
 
 	    // only account members can do this
