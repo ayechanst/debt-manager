@@ -102,14 +102,15 @@ contract YourContract {
 		}
 	}
 
-	// function getPeople() public view returns (string[] memory) {
-	// 	uint256 numOfPeople = nodes.length;
-	// 	string[] memory peopleNames = new string[](numOfPeople);
-	// 	for (uint256 i = 0; i < numOfPeople; i++) {
-	// 		peopleNames[i] = nodes[i].name;
-	// 	}
-	// 	return peopleNames;
-	// }
+	function getPeople() public view returns (Person[] memory) {
+		uint256 numOfPeople = personKeys.length;
+		string[] memory peopleArray = new string[](numOfPeople);
+		for (uint256 i = 0; i < numOfPeople; i++) {
+			// running into problems here consult get groups
+			peopleArray[i] = people[personKeys[i]];
+		}
+		return peopleArray;
+	}
 
 	// this will only return edges created by a group of people
 	// function getDebts() public view returns (Edge[] memory) {
