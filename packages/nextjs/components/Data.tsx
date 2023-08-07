@@ -1,70 +1,74 @@
 import React from "react";
-import { DataCard } from "../components/DataCard";
-import ReactDOMServer from "react-dom/server";
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-// this component is in charge or rendering data cards
-// it needs to take in some props from SelectGroup.tsx
-// then display really cool stuff
+/* import { DataCard } from "../components/DataCard";
+ * import ReactDOMServer from "react-dom/server";
+ * import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+ *  */
+import { useRouter } from "next/router";
+
 export const Data: React.FC = () => {
-  const people: string[] = [];
+  const router = useRouter();
+  const propsFromComponentA = router.query.propsToPass;
+  /* const people: string[] = [];
 
-  const { data: peopleObject } = useScaffoldContractRead({
-    contractName: "YourContract",
-    functionName: "getPeople",
-  });
+   * const { data: peopleObject } = useScaffoldContractRead({
+   *   contractName: "YourContract",
+   *   functionName: "getPeople",
+   * });
 
-  if (peopleObject) {
-    const objLength = peopleObject?.length;
-    for (let i = 0; i < objLength; i++) {
-      people.push(peopleObject?.[i]);
-    }
-  }
+   * if (peopleObject) {
+   *   const objLength = peopleObject?.length;
+   *   for (let i = 0; i < objLength; i++) {
+   *     people.push(peopleObject?.[i]);
+   *   }
+   * }
 
-  // this is an object with one array full of Edge Structs
-  const { data: debtObject } = useScaffoldContractRead({
-    contractName: "YourContract",
-    functionName: "getDebts",
-  });
+   * const { data: debtObject } = useScaffoldContractRead({
+   *   contractName: "YourContract",
+   *   functionName: "getDebts",
+   * });
 
-  const debts = debtObject;
-  console.log(debtObject);
+   * const debts = debtObject;
+   * console.log(debtObject);
 
-  function getSomeonesDebt(person: string) {
-    let accruedDebt = 0;
-    debts?.forEach(edge => {
-      if (person !== edge.nameOfBuyer) {
-        if (edge.nameOfBeneficiary === person) {
-          accruedDebt += Number(edge.debtAmount);
-        }
-      }
-    });
-    return accruedDebt;
-  }
+   * function getSomeonesDebt(person: string) {
+   *   let accruedDebt = 0;
+   *   debts?.forEach(edge => {
+   *     if (person !== edge.nameOfBuyer) {
+   *       if (edge.nameOfBeneficiary === person) {
+   *         accruedDebt += Number(edge.debtAmount);
+   *       }
+   *     }
+   *   });
+   *   return accruedDebt;
+   * }
 
-  function getSomeonesPurchases(person: string) {
-    let purchaseAmount = 0;
-    debts?.forEach(edge => {
-      if (edge.nameOfBuyer === person) {
-        purchaseAmount += Number(edge.debtAmount);
-      }
-    });
-    return purchaseAmount;
-  }
+   * function getSomeonesPurchases(person: string) {
+   *   let purchaseAmount = 0;
+   *   debts?.forEach(edge => {
+   *     if (edge.nameOfBuyer === person) {
+   *       purchaseAmount += Number(edge.debtAmount);
+   *     }
+   *   });
+   *   return purchaseAmount;
+   * }
 
-  function getSomeonesBalance(person: string) {
-    const debt = getSomeonesDebt(person);
-    const spendings = getSomeonesPurchases(person);
-    return spendings - debt;
-  }
-
+   * function getSomeonesBalance(person: string) {
+   *   const debt = getSomeonesDebt(person);
+   *   const spendings = getSomeonesPurchases(person);
+   *   return spendings - debt;
+   * }
+   */
   return (
     <>
-      {people.map(person => {
-        const personBalance = getSomeonesBalance(person);
-        const personSpendings = getSomeonesPurchases(person);
-        return <DataCard name={person} balance={personBalance} spendings={personSpendings} />;
-      })}
+      {/* {people.map(person => {
+          const personBalance = getSomeonesBalance(person);
+          const personSpendings = getSomeonesPurchases(person);
+          return <DataCard name={person} balance={personBalance} spendings={personSpendings} />;
+          })} */}
+
+      <div>yessir indeed</div>
+      <div>name of the group: {propsFromComponentA}</div>
     </>
   );
 };

@@ -1,23 +1,17 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { GroupCard } from "../components/GroupCard";
 import { useAccount } from "wagmi";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 export const SelectGroup = () => {
   const { address } = useAccount();
-
-  function handleClick() {
-    // make this navigate to the group info/Data part
-    // based off the group name maybe render Data.tsx with relevant props
-    console.log("cards been clicked");
-  }
+  const router = useRouter();
 
   const { data: groups } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "getGroups",
   });
-
-  console.log("here our groups", groups);
 
   return (
     <>
@@ -28,7 +22,12 @@ export const SelectGroup = () => {
             <>
               <button
                 className="bg-white rounded-lg shadow-md p-4 hover:bg-gray-100 cursor-pointer"
-                onClick={handleClick}
+                onClick={() => {
+                  router.push({
+                    pathname: "./groups",
+                    query: { propsToPass: nameOfGroup },
+                  });
+                }}
               >
                 <GroupCard nameOfGroup={nameOfGroup} />
               </button>
