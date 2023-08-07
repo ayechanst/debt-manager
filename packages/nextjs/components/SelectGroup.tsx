@@ -15,7 +15,6 @@ export const SelectGroup = () => {
   const { data: groups } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "getGroups",
-    args: [address],
   });
 
   console.log("here our groups", groups);

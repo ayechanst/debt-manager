@@ -55,22 +55,12 @@ contract YourContract {
 	}
 
 	// this function will not be this simple
-	function getGroups(address sender) public view returns (Group[] memory) {
-		uint256 count = 0;
+	function getGroups() public view returns (Group[] memory) {
+		Group[] memory allGroups = new Group[](groupKeys.length);
 		for (uint256 i = 0; i < groupKeys.length; i++) {
-			if (groups[groupKeys[i]].groupOwner == sender) {
-				count++;
-			}
+			allGroups[i] = groups[groupKeys[i]];
 		}
-		Group[] memory ownersGroups = new Group[](count);
-		uint256 index = 0;
-		for (uint256 i = 0; i < groupKeys.length; i++) {
-			if (groups[groupKeys[i]].groupOwner == sender) {
-				ownersGroups[index] = groups[groupKeys[index]];
-				index++;
-			}
-		}
-		return ownersGroups;
+		return allGroups;
 	}
 
 	function createPerson(string memory personName) public {

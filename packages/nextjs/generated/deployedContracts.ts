@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
           abi: [
             {
               inputs: [
@@ -105,13 +105,7 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "sender",
-                  type: "address",
-                },
-              ],
+              inputs: [],
               name: "getGroups",
               outputs: [
                 {
@@ -130,6 +124,11 @@ const contracts = {
                       internalType: "uint256",
                       name: "groupKey",
                       type: "uint256",
+                    },
+                    {
+                      internalType: "string[]",
+                      name: "groupMembers",
+                      type: "string[]",
                     },
                   ],
                   internalType: "struct YourContract.Group[]",
