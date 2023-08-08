@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { AddPerson } from "../components/AddPerson";
 import { AddPurchase } from "../components/AddPurchase";
+import { DataCard } from "../components/DataCard";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 export const Data: React.FC = () => {
@@ -16,10 +17,10 @@ export const Data: React.FC = () => {
     functionName: "getPeople",
   });
 
-  const peopleInGroup: object[] = [];
+  const peopleInGroup: string[] = [];
   peopleArray?.forEach(person => {
     if (person.groupMemberOf == groupTitleProps) {
-      peopleInGroup.push(person);
+      peopleInGroup.push(person.name);
     }
   });
   console.log("here are all the people: ", peopleArray);
@@ -63,27 +64,26 @@ export const Data: React.FC = () => {
 
   return (
     <>
-      {/* {people.map(person => {
-          const personBalance = getSomeonesBalance(person);
-          const personSpendings = getSomeonesPurchases(person);
-          return <DataCard name={person} balance={personBalance} spendings={personSpendings} />;
-          })} */}
-
       <div className="navbar bg-base-100">
         <div className="navbar-start"></div>
         <div className="navbar-center">
           <a className="btn btn-ghost normal-case text-xl">{groupTitleProps}</a>
         </div>
         <div className="navbar-end">
-          <button onClick={() => setAddPerson(!addPerson)} className="btn btn-ghost btn-circle">
-            Add Person
-          </button>
+          <div className="px-10">
+            <button onClick={() => setAddPerson(!addPerson)} className="btn">
+              Add Person
+            </button>
 
-          <button onClick={() => setAddPurchase(!addPurchase)} className="btn btn-ghost btn-circle">
-            Add Purchase
-          </button>
+            <button onClick={() => setAddPurchase(!addPurchase)} className="btn">
+              Add Purchase
+            </button>
+          </div>
         </div>
       </div>
+      {peopleInGroup.map(person => {
+        return <DataCard key={person} name={person} />;
+      })}
       {/* pass in an identifier prop */}
       {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}
       {/* fix this thing */}

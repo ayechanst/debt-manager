@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactDOMServer from "react-dom/server";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -44,9 +43,16 @@ export const AddPurchase: React.FC<Props> = props => {
   });
 
   // start loading people from smart contract
-  const { data: peopleObject } = useScaffoldContractRead({
+  const { data: peopleArray } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "getPeople",
+  });
+
+  const peopleInGroup: string[] = [];
+  peopleArray?.forEach(person => {
+    if (person.groupMemberOf == groupTitleProps) {
+      peopleInGroup.push(person.name);
+    }
   });
 
   return (
@@ -73,7 +79,7 @@ export const AddPurchase: React.FC<Props> = props => {
               value={personName}
               onChange={e => setPersonName(e.target.value)}
             />
-            {peopleObject?.map((name, index) => (
+            {peopleInGroup?.map((name, index) => (
               <div key={index}>
                 <label className="flex">
                   <input type="checkbox" className="checkbox" onChange={() => handleCheckbox(name)} />

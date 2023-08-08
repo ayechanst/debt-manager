@@ -26,6 +26,7 @@ contract YourContract {
 		string purchaseName;
 		uint256 purchaseAmount;
 		uint256 debtAmount;
+		string edgeOf;
 	}
 
 	struct Group {
@@ -78,51 +79,50 @@ contract YourContract {
 		personKeys.push(freshKey);
 	}
 
-	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 purchaseAmount, uint256 debtAmount) public returns (Edge memory) {
+	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 purchaseAmount, uint256 debtAmount, string memory sentFrom) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.nameOfBeneficiary = nameOfBeneficiary;
 		newEdge.purchaseName = purchaseName;
 		newEdge.purchaseAmount = purchaseAmount;
 		newEdge.debtAmount = debtAmount;
+		newEdge.edgeFrom = sentFrom;
 		return newEdge;
 	}
 
 
 	// store this in the correct location
 	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries, string memory sentFrom) public {
+		uint256 freshKey = currentEdgeKey + 1;
+		current EdgeKey = freshKey;
 		uint256 numOfPeople = beneficiaries.length;
 		require(numOfPeople > 0, "division by 0");
 		uint256 dividedCost = debtAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
 			string memory beneficiary = beneficiaries[i];
-			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, debtAmount, dividedCost);
-			// this will push these edges to an array of edges specific to the key
-			//graph[address] = newEdge;
-			// edges.push(newEdge);
+			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, debtAmount, dividedCost, sentFrom);
+			graph[freshKey] = newEdge;
+			edgeKeys.push(freshKey);
 		}
 	}
 
 	function getPeople() public view returns (Person[] memory) {
 		Person[] memory peopleArray = new Person[](personKeys.length);
 		for (uint256 i = 0; i < personKeys.length; i++) {
-			// running into problems here consult get groups
 			peopleArray[i] = people[personKeys[i]];
 		}
 		return peopleArray;
 	}
 
-	// this will only return edges created by a group of people
-	// function getDebts() public view returns (Edge[] memory) {
-	// 	Edge[] memory accountEdges;
-	// 	for (uint256 i = 0; i < edges.length; i++) {
-	// 		if (edges[i].edgeId == msg.sender) {
-	// 			// or also if msg.sender is part of the group
-	// 			accountEdges[i] = edges[i];
-	// 		}
-	// 	}
-	// 	return accountEdges;
-	// }
+	function getDebts() public view returns (Edge[] memory) {
+		Edge[] memory accountEdges;
+		for (uint256 i = 0; i < edges.length; i++) {
+			if (edges[i].edgeId == msg.sender) {
+				accountEdges[i] = edges[i];
+			}
+		}
+		return accountEdges;
+	}
 
 
 }
