@@ -36,7 +36,6 @@ export const Data: React.FC = () => {
       if (edge.edgeOf == groupTitleProps) {
         if (person !== edge.nameOfBuyer) {
           if (edge.nameOfBeneficiary == person) {
-            console.log("beneficiary: ", person);
             accruedDebt += Number(edge.debtAmount);
           }
         }
@@ -45,23 +44,23 @@ export const Data: React.FC = () => {
     return accruedDebt;
   }
 
-  /* function getSomeonesPurchases(person: string) {
-   *   let purchaseAmount = 0;
-   *   debts?.forEach(edge => {
-   *     if (edge.nameOfBuyer === person) {
-   *       purchaseAmount += Number(edge.debtAmount);
-   *     }
-   *   });
-   *   return purchaseAmount;
-   * }
-   */
+  function getSomeonesSpendings(person: string) {
+    let spendings = 0;
+    debtObject?.forEach(edge => {
+      if (edge.edgeOf == groupTitleProps) {
+        if (edge.nameOfBuyer == person) {
+          spendings += Number(edge.debtAmount);
+        }
+      }
+    });
+    return spendings;
+  }
 
-  /* function getSomeonesBalance(person: string) {
-   *   const debt = getSomeonesDebt(person);
-   *   const spendings = getSomeonesPurchases(person);
-   *   return spendings - debt;
-   * }
-   */
+  function getSomeonesBalance(person: string) {
+    const debt = getSomeonesDebt(person);
+    const spendings = getSomeonesSpendings(person);
+    return spendings - debt;
+  }
 
   return (
     <>
@@ -83,8 +82,9 @@ export const Data: React.FC = () => {
         </div>
       </div>
       {peopleInGroup.map(person => {
-        const personsDebt = getSomeonesDebt(person);
-        return <DataCard key={person} name={person} balance={personsDebt} />;
+        const personsBalance = getSomeonesBalance(person);
+        const personsSpendings = getSomeonesSpendings(person);
+        return <DataCard key={person} name={person} balance={personsBalance} spendings={personsSpendings} />;
       })}
       {/* pass in an identifier prop */}
       {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}

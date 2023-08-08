@@ -5,13 +5,13 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+          address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
           abi: [
             {
               inputs: [
                 {
                   internalType: "uint256",
-                  name: "debtAmount",
+                  name: "purchaseAmount",
                   type: "uint256",
                 },
                 {
@@ -31,7 +31,7 @@ const contracts = {
                 },
                 {
                   internalType: "uint256",
-                  name: "purchaseAmount",
+                  name: "dividedCost",
                   type: "uint256",
                 },
                 {
@@ -233,7 +233,7 @@ const contracts = {
               inputs: [
                 {
                   internalType: "uint256",
-                  name: "debtAmount",
+                  name: "purchaseAmount",
                   type: "uint256",
                 },
                 {

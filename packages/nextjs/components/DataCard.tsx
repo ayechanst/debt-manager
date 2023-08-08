@@ -3,12 +3,11 @@ import React from "react";
 interface Props {
   name: string;
   balance: number;
-  /* spendings: number; */
+  spendings: number;
 }
 
 export const DataCard: React.FC<Props> = props => {
-  /* const { name, balance, spendings } = props; */
-  const { name, balance } = props;
+  const { name, balance, spendings } = props;
   return (
     <>
       <div>
@@ -19,7 +18,7 @@ export const DataCard: React.FC<Props> = props => {
           </div>
           <div className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
             <p>Balance: {balance}</p>
-            {/* <p>Total Spendings: {spendings}</p> */}
+            <p>Total Spendings: {spendings}</p>
           </div>
         </div>
       </div>

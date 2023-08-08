@@ -79,32 +79,33 @@ contract YourContract {
 		personKeys.push(freshKey);
 	}
 
-	function createEdge(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string memory nameOfBeneficiary, uint256 purchaseAmount, string memory sentFrom) public returns (Edge memory) {
+	function createEdge(uint256 purchaseAmount, string memory nameOfBuyer, string memory purchaseName, string memory nameOfBeneficiary, uint256 dividedCost, string memory sentFrom) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.nameOfBeneficiary = nameOfBeneficiary;
 		newEdge.purchaseName = purchaseName;
 		newEdge.purchaseAmount = purchaseAmount;
-		newEdge.debtAmount = debtAmount;
+		newEdge.debtAmount = dividedCost;
 		newEdge.edgeOf = sentFrom;
 		return newEdge;
 	}
 
 
-	// see if this works now, if not mess with args
-	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries, string memory sentFrom) public {
+	// the way the looping is working it was storing the same edge in the mapping each time
+	function logPurchase(uint256 purchaseAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries, string memory sentFrom) public {
 		uint256 freshKey = currentEdgeKey + 1;
-		currentEdgeKey = freshKey;
 		uint256 numOfPeople = beneficiaries.length;
 		require(numOfPeople > 0, "division by 0");
-		uint256 dividedCost = debtAmount / numOfPeople;
+		uint256 dividedCost = purchaseAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
 			string memory nameOfBeneficiary = beneficiaries[i];
-			Edge memory newEdge = createEdge(debtAmount, nameOfBuyer, purchaseName, nameOfBeneficiary, dividedCost, sentFrom);
+			Edge memory newEdge = createEdge(purchaseAmount, nameOfBuyer, purchaseName, nameOfBeneficiary, dividedCost, sentFrom);
 			graph[freshKey] = newEdge;
 			edgeKeys.push(freshKey);
+			freshKey++;
+			}
+		currentEdgeKey += freshKey;
 		}
-	}
 
 	function getPeople() public view returns (Person[] memory) {
 		Person[] memory peopleArray = new Person[](personKeys.length);
