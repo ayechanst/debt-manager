@@ -16,11 +16,12 @@ export const Data: React.FC = () => {
 
   const peopleInGroup: object[] = [];
   peopleArray?.forEach(person => {
-    if (person.groupMemberOf === groupTitleProps) {
+    if (person.groupMemberOf == groupTitleProps) {
       peopleInGroup.push(person);
     }
   });
-  console.log("here are the people: ", peopleInGroup);
+  console.log("here are all the people: ", peopleArray);
+  console.log("here are the people in group: ", peopleInGroup);
 
   /* const { data: debtObject } = useScaffoldContractRead({
    *   contractName: "YourContract",
@@ -83,7 +84,7 @@ export const Data: React.FC = () => {
         </div>
       </div>
       {/* pass in an identifier prop */}
-      {addPerson && <AddPerson sentFrom={groupTitleProps as string} />}
+      {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}
     </>
   );
 };

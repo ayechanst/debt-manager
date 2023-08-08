@@ -17,7 +17,7 @@ contract YourContract {
 	struct Person {
 		string name;
 		address id;
-		string[] groupMemberOf;
+		string groupMemberOf;
 	}
 
 	struct Edge {
@@ -70,6 +70,7 @@ contract YourContract {
 		uint256 freshKey = currentPersonKey + 1;
 		currentPersonKey = freshKey;
 		newPerson.name = personName;
+		newPerson.groupMemberOf = sentFrom;
 		newPerson.id = address(bytes20(keccak256(abi.encode(personName, block.number))));
 		people[freshKey] = newPerson;
 		personKeys.push(freshKey);
