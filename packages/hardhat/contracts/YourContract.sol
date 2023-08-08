@@ -45,6 +45,8 @@ contract YourContract {
 	uint256 currentKey = 0;
 	uint256[] personKeys;
 	uint256 currentPersonKey = 0;
+	uint256[] edgeKeys;
+	uint256 currentEdgeKey = 0;
 
 	function createGroup(string memory groupName, address person) public {
 		Group memory newGroup;
@@ -76,7 +78,6 @@ contract YourContract {
 		personKeys.push(freshKey);
 	}
 
-	    // only account members can do this
 	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 purchaseAmount, uint256 debtAmount) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
@@ -88,9 +89,8 @@ contract YourContract {
 	}
 
 
-	// require that person making the transaction is a member of this account
-	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries) public {
-		// find a unique identifier to determine what group this is (key)
+	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries, string memory sentFrom) public {
+		// add sent from
 		uint256 numOfPeople = beneficiaries.length;
 		require(numOfPeople > 0, "division by 0");
 		uint256 dividedCost = debtAmount / numOfPeople;

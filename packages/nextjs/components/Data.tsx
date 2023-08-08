@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { AddPerson } from "../components/AddPerson";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { AddPurchase } from "./AddPurchase";
 
 export const Data: React.FC = () => {
   const [addPerson, setAddPerson] = useState(false);
+  const [addPurchase, setAddPurchase] = useState(false);
   const router = useRouter();
   const groupTitleProps = router.query.propsToPass;
 
@@ -76,15 +78,15 @@ export const Data: React.FC = () => {
           <button onClick={() => setAddPerson(!addPerson)} className="btn btn-ghost btn-circle">
             Add Person
           </button>
-          <button className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <span className="badge badge-xs badge-primary indicator-item"></span>
-            </div>
+
+          <button onClick={() => setAddPurchase(!addPurchase)} className="btn btn-ghost btn-circle">
+            Add Purchase
           </button>
         </div>
       </div>
       {/* pass in an identifier prop */}
       {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}
+      {addPurchase && <AddPurchase>}
     </>
   );
 };
