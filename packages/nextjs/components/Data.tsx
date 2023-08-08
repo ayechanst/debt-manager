@@ -27,6 +27,7 @@ export const Data: React.FC = () => {
     contractName: "YourContract",
     functionName: "getDebts",
   });
+
   console.log(debtObject);
 
   function getSomeonesDebt(person: string) {

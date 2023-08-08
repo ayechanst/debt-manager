@@ -99,8 +99,8 @@ contract YourContract {
 		require(numOfPeople > 0, "division by 0");
 		uint256 dividedCost = debtAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
-			string memory beneficiary = beneficiaries[i];
-			Edge memory newEdge = createEdge(debtAmount, nameOfBuyer, purchaseName, beneficiary, dividedCost, sentFrom);
+			string memory nameOfBeneficiary = beneficiaries[i];
+			Edge memory newEdge = createEdge(debtAmount, nameOfBuyer, purchaseName, nameOfBeneficiary, dividedCost, sentFrom);
 			graph[freshKey] = newEdge;
 			edgeKeys.push(freshKey);
 		}
