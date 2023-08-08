@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
           abi: [
             {
               inputs: [
@@ -33,6 +33,11 @@ const contracts = {
                   internalType: "uint256",
                   name: "debtAmount",
                   type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "sentFrom",
+                  type: "string",
                 },
               ],
               name: "createEdge",
@@ -63,6 +68,11 @@ const contracts = {
                       internalType: "uint256",
                       name: "debtAmount",
                       type: "uint256",
+                    },
+                    {
+                      internalType: "string",
+                      name: "edgeOf",
+                      type: "string",
                     },
                   ],
                   internalType: "struct YourContract.Edge",
@@ -107,6 +117,51 @@ const contracts = {
               name: "createPerson",
               outputs: [],
               stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getDebts",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "nameOfBuyer",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "nameOfBeneficiary",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "purchaseName",
+                      type: "string",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "purchaseAmount",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "debtAmount",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "string",
+                      name: "edgeOf",
+                      type: "string",
+                    },
+                  ],
+                  internalType: "struct YourContract.Edge[]",
+                  name: "",
+                  type: "tuple[]",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
             {

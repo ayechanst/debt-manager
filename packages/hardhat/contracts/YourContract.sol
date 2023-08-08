@@ -86,7 +86,7 @@ contract YourContract {
 		newEdge.purchaseName = purchaseName;
 		newEdge.purchaseAmount = purchaseAmount;
 		newEdge.debtAmount = debtAmount;
-		newEdge.edgeFrom = sentFrom;
+		newEdge.edgeOf = sentFrom;
 		return newEdge;
 	}
 
@@ -94,7 +94,7 @@ contract YourContract {
 	// store this in the correct location
 	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries, string memory sentFrom) public {
 		uint256 freshKey = currentEdgeKey + 1;
-		current EdgeKey = freshKey;
+		currentEdgeKey = freshKey;
 		uint256 numOfPeople = beneficiaries.length;
 		require(numOfPeople > 0, "division by 0");
 		uint256 dividedCost = debtAmount / numOfPeople;
@@ -115,11 +115,9 @@ contract YourContract {
 	}
 
 	function getDebts() public view returns (Edge[] memory) {
-		Edge[] memory accountEdges;
-		for (uint256 i = 0; i < edges.length; i++) {
-			if (edges[i].edgeId == msg.sender) {
-				accountEdges[i] = edges[i];
-			}
+		Edge[] memory accountEdges = new Edge[](edgeKeys.length);
+		for (uint256 i = 0; i < edgeKeys.length; i++) {
+			accountEdges[i] = graph[edgeKeys[i]];
 		}
 		return accountEdges;
 	}

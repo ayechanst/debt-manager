@@ -11,7 +11,6 @@ export const Data: React.FC = () => {
   const router = useRouter();
   const groupTitleProps = router.query.propsToPass;
 
-  // we need to get people from the group with the same name
   const { data: peopleArray } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "getPeople",
@@ -23,26 +22,27 @@ export const Data: React.FC = () => {
       peopleInGroup.push(person.name);
     }
   });
-  console.log("here are all the people: ", peopleArray);
-  console.log("here are the people in group: ", peopleInGroup);
 
-  /* const { data: debtObject } = useScaffoldContractRead({
-   *   contractName: "YourContract",
-   *   functionName: "getDebts",
-   * }); */
+  const { data: debtObject } = useScaffoldContractRead({
+    contractName: "YourContract",
+    functionName: "getDebts",
+  });
+  console.log(debtObject);
 
-  /* function getSomeonesDebt(person: string) {
-   *   let accruedDebt = 0;
-   *   debts?.forEach(edge => {
-   *     if (person !== edge.nameOfBuyer) {
-   *       if (edge.nameOfBeneficiary === person) {
-   *         accruedDebt += Number(edge.debtAmount);
-   *       }
-   *     }
-   *   });
-   *   return accruedDebt;
-   * }
-   */
+  function getSomeonesDebt(person: string) {
+    let accruedDebt = 0;
+    debtObject?.forEach(edge => {
+      if (edge.edgeOf == groupTitleProps) {
+        if (person !== edge.nameOfBuyer) {
+          if (edge.nameOfBeneficiary == person) {
+            console.log("beneficiary: ", person);
+            accruedDebt += Number(edge.debtAmount);
+          }
+        }
+      }
+    });
+    return accruedDebt;
+  }
 
   /* function getSomeonesPurchases(person: string) {
    *   let purchaseAmount = 0;
@@ -82,7 +82,8 @@ export const Data: React.FC = () => {
         </div>
       </div>
       {peopleInGroup.map(person => {
-        return <DataCard key={person} name={person} />;
+        const personsDebt = getSomeonesDebt(person);
+        return <DataCard key={person} name={person} balance={personsDebt} />;
       })}
       {/* pass in an identifier prop */}
       {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}

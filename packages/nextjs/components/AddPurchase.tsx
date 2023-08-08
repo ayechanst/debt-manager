@@ -17,7 +17,7 @@ export const AddPurchase: React.FC<Props> = props => {
   // submits form, both checkButtons and logPurchase
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync();
+    writeAsync({ args: [amountAsBigInt, personName, purchaseName, checkboxData, groupTitleProps] });
   }
 
   function handleCheckbox(name: string) {
