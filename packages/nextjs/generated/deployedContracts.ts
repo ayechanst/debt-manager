@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+          address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
           abi: [
             {
               inputs: [
@@ -98,6 +98,11 @@ const contracts = {
                   name: "personName",
                   type: "string",
                 },
+                {
+                  internalType: "string",
+                  name: "sentFrom",
+                  type: "string",
+                },
               ],
               name: "createPerson",
               outputs: [],
@@ -132,6 +137,36 @@ const contracts = {
                     },
                   ],
                   internalType: "struct YourContract.Group[]",
+                  name: "",
+                  type: "tuple[]",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getPeople",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "name",
+                      type: "string",
+                    },
+                    {
+                      internalType: "address",
+                      name: "id",
+                      type: "address",
+                    },
+                    {
+                      internalType: "string[]",
+                      name: "groupMemberOf",
+                      type: "string[]",
+                    },
+                  ],
+                  internalType: "struct YourContract.Person[]",
                   name: "",
                   type: "tuple[]",
                 },

@@ -65,7 +65,7 @@ contract YourContract {
 		return allGroups;
 	}
 
-	function createPerson(string memory personName) public {
+	function createPerson(string memory personName, string memory sentFrom) public {
 		Person memory newPerson;
 		uint256 freshKey = currentPersonKey + 1;
 		currentPersonKey = freshKey;
@@ -103,9 +103,8 @@ contract YourContract {
 	}
 
 	function getPeople() public view returns (Person[] memory) {
-		uint256 numOfPeople = personKeys.length;
-		string[] memory peopleArray = new string[](numOfPeople);
-		for (uint256 i = 0; i < numOfPeople; i++) {
+		Person[] memory peopleArray = new Person[](personKeys.length);
+		for (uint256 i = 0; i < personKeys.length; i++) {
 			// running into problems here consult get groups
 			peopleArray[i] = people[personKeys[i]];
 		}

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-export const AddPerson = () => {
+interface Props {
+  groupTitleProps: string;
+}
+
+export const AddPerson: React.FC<Props> = props => {
+  const { groupTitleProps } = props;
   const [personName, setPersonName] = useState("");
 
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "createPerson",
-    args: [personName],
+    args: [personName, groupTitleProps],
     onBlockConfirmation: txnReceipt => {
       console.log("person created", txnReceipt.blockHash);
     },
@@ -15,7 +20,7 @@ export const AddPerson = () => {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [personName] });
+    writeAsync({ args: [personName, groupTitleProps] });
   }
 
   return (
