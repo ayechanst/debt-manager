@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { AddPerson } from "../components/AddPerson";
+import { AddPurchase } from "../components/AddPurchase";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { AddPurchase } from "./AddPurchase";
 
 export const Data: React.FC = () => {
   const [addPerson, setAddPerson] = useState(false);
@@ -86,7 +86,8 @@ export const Data: React.FC = () => {
       </div>
       {/* pass in an identifier prop */}
       {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}
-      {addPurchase && <AddPurchase>}
+      {/* fix this thing */}
+      {addPurchase && <AddPurchase groupTitleProps={groupTitleProps as string} />}
     </>
   );
 };

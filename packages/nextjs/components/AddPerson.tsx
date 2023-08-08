@@ -20,7 +20,7 @@ export const AddPerson: React.FC<Props> = props => {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    writeAsync({ args: [personName, groupTitleProps] });
+    writeAsync();
   }
 
   return (

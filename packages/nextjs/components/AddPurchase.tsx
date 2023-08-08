@@ -3,7 +3,12 @@ import ReactDOMServer from "react-dom/server";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-export const AddPurchase = () => {
+interface Props {
+  groupTitleProps: string;
+}
+
+export const AddPurchase: React.FC<Props> = props => {
+  const { groupTitleProps } = props;
   const [personName, setPersonName] = useState("");
   const [purchaseName, setPurchaseName] = useState("");
   const [purchaseAmount, setPurchaseAmount] = useState(0);
@@ -28,10 +33,11 @@ export const AddPurchase = () => {
     });
   }
 
+  // fix this thing
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "logPurchase",
-    args: [amountAsBigInt, personName, purchaseName, checkboxData],
+    args: [amountAsBigInt, personName, purchaseName, checkboxData, groupTitleProps],
     onBlockConfirmation: txnReceipt => {
       console.log("purchase logged", txnReceipt.blockHash);
     },
