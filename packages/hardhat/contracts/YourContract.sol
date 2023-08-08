@@ -79,7 +79,7 @@ contract YourContract {
 		personKeys.push(freshKey);
 	}
 
-	function createEdge(string memory nameOfBuyer, string memory nameOfBeneficiary, string memory purchaseName, uint256 purchaseAmount, uint256 debtAmount, string memory sentFrom) public returns (Edge memory) {
+	function createEdge(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string memory nameOfBeneficiary, uint256 purchaseAmount, string memory sentFrom) public returns (Edge memory) {
 		Edge memory newEdge;
 		newEdge.nameOfBuyer = nameOfBuyer;
 		newEdge.nameOfBeneficiary = nameOfBeneficiary;
@@ -91,7 +91,7 @@ contract YourContract {
 	}
 
 
-	// store this in the correct location
+	// see if this works now, if not mess with args
 	function logPurchase(uint256 debtAmount, string memory nameOfBuyer, string memory purchaseName, string[] memory beneficiaries, string memory sentFrom) public {
 		uint256 freshKey = currentEdgeKey + 1;
 		currentEdgeKey = freshKey;
@@ -100,7 +100,7 @@ contract YourContract {
 		uint256 dividedCost = debtAmount / numOfPeople;
 		for (uint256 i = 0; i < numOfPeople; i++) {
 			string memory beneficiary = beneficiaries[i];
-			Edge memory newEdge = createEdge(nameOfBuyer, beneficiary, purchaseName, debtAmount, dividedCost, sentFrom);
+			Edge memory newEdge = createEdge(debtAmount, nameOfBuyer, purchaseName, beneficiary, dividedCost, sentFrom);
 			graph[freshKey] = newEdge;
 			edgeKeys.push(freshKey);
 		}

@@ -32,7 +32,8 @@ export const AddPurchase: React.FC<Props> = props => {
     });
   }
 
-  // fix this thing
+  console.log(checkboxData);
+
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "logPurchase",
