@@ -21,7 +21,7 @@ export const SelectGroup = () => {
           return (
             <>
               <button
-                className="flex items-center justify-center bg-white rounded-lg shadow-md p-4 hover:bg-gray-100 cursor-pointer"
+                className="flex items-center justify-center bg-white rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
                 onClick={() => {
                   router.push({
                     pathname: "./groups",

@@ -11,29 +11,17 @@ const Main = () => {
 
   return (
     <>
-      <div className="drawer">
-        <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col">
-          {/* Navbar */}
-          <div className="w-full navbar bg-base-300">
-            <div className="flex-1 px-2 mx-2"> iGub </div>
-            <ul className="menu menu-horizontal">
-              {/* Navbar menu content here */}
-              <li>
-                <button className="btn btn-secondary" onClick={handleAddGroup}>
-                  Add Group
-                </button>
-              </li>
-            </ul>
-          </div>
-          {/* Page content here */}
-          <div className="grid grid-cols-3 gap-4">
+      <div className="flex h-screen justify-center items-center">
+        <div className="flex flex-col items-center">
+          <div className="flex space-x-4">
             <SelectGroup />
-            <div className="flex flex-col">{addGroup && <MakeGroup />}</div>
           </div>
-          <div className="flex flex-row-reverse">
-            {/* depending on what group is selected, render the correct data */}
+          <div className="py-3">
+            <button className="btn btn-secondary " onClick={handleAddGroup}>
+              Add Group
+            </button>
           </div>
+          <div>{addGroup && <MakeGroup />}</div>
         </div>
       </div>
     </>
