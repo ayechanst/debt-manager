@@ -17,7 +17,7 @@ export const Hero = () => {
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">iGUB</h1>
           <p className="py-6">
-            Short for "I'll get you back", iGUB is a decentralized application for keeping track of debt among friends!
+            Short for Ill Get You Back, iGUB is a decentralized application for keeping track of debt among friends!
           </p>
           <div className="space-x-4">
             <button onClick={handleGetStarted} className="btn btn-primary">
