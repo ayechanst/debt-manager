@@ -11,14 +11,11 @@ export const DataCard: React.FC<Props> = props => {
   return (
     <>
       <div>
-        <div className="collapse bg-base-200">
-          <input type="checkbox" className="peer" />
-          <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-            Name: {name}
-          </div>
-          <div className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-            <p>Balance: {balance}</p>
-            <p>Total Spendings: {spendings}</p>
+        <div className="card w-96 h-full bg-base-100 shadow-xl m-3">
+          <div className="card-body">
+            <h2 className="card-title">{name}</h2>
+            <div>Balance: {balance}</div>
+            <div>Total Spendings: {spendings}</div>
           </div>
         </div>
       </div>

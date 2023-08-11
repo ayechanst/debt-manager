@@ -25,12 +25,11 @@ export const AddPerson: React.FC<Props> = props => {
 
   return (
     <>
-      <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card w-96 h-full bg-base-100 shadow-xl m-3">
         <div className="card-body">
           <h2 className="card-title">Add Someone!</h2>
-          <div>group being sent from: {groupTitleProps}</div>
           <form onSubmit={handleSubmit}>
-            <div className="flex space-y-3 flex-col">
+            <div className="flex space-y-1 flex-col">
               <input
                 className="input input-bordered w-full max-w-xs"
                 placeholder="Person's name"

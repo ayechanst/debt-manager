@@ -21,6 +21,7 @@ export const MakeGroup = () => {
     event.preventDefault();
     writeAsync({ args: [groupName, address] });
     router.push("./home");
+    // this should pass info to Home.tsx to turn off AddGroups
   }
 
   return (

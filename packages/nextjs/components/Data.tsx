@@ -70,26 +70,27 @@ export const Data: React.FC = () => {
           <a className="btn btn-ghost normal-case text-xl">{groupTitleProps}</a>
         </div>
         <div className="navbar-end">
-          <div className="px-10">
+          <div className="px-10 space-x-4">
             <button onClick={() => setAddPerson(!addPerson)} className="btn">
               Add Person
             </button>
-
             <button onClick={() => setAddPurchase(!addPurchase)} className="btn">
               Add Purchase
             </button>
           </div>
         </div>
       </div>
-      {peopleInGroup.map(person => {
-        const personsBalance = getSomeonesBalance(person);
-        const personsSpendings = getSomeonesSpendings(person);
-        return <DataCard key={person} name={person} balance={personsBalance} spendings={personsSpendings} />;
-      })}
-      {/* pass in an identifier prop */}
-      {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}
-      {/* fix this thing */}
-      {addPurchase && <AddPurchase groupTitleProps={groupTitleProps as string} />}
+      <div>
+        <div className="grid grid-cols-3 gap-2 p-4">
+          {addPerson && <AddPerson groupTitleProps={groupTitleProps as string} />}
+          {addPurchase && <AddPurchase groupTitleProps={groupTitleProps as string} />}
+          {peopleInGroup.map(person => {
+            const personsBalance = getSomeonesBalance(person);
+            const personsSpendings = getSomeonesSpendings(person);
+            return <DataCard key={person} name={person} balance={personsBalance} spendings={personsSpendings} />;
+          })}
+        </div>
+      </div>
     </>
   );
 };

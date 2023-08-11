@@ -62,30 +62,38 @@ export const AddPurchase: React.FC<Props> = props => {
         <div className="card-body">
           <h2 className="card-title">Add a purchase!</h2>
           <form onSubmit={handleSubmit}>
-            <input
-              placeholder="Purchase Name"
-              className="input input-bordered w-full max-w-xs"
-              value={purchaseName}
-              onChange={e => setPurchaseName(e.target.value)}
-            />
-            <input
-              placeholder="Purchase Amount"
-              className="input input-bordered w-full max-w-xs"
-              value={purchaseAmount}
-              onChange={e => setPurchaseAmount(e.target.value)}
-            />
-            <input
-              placeholder="Buyer's Name"
-              className="input input-bordered w-full max-w-xs"
-              value={personName}
-              onChange={e => setPersonName(e.target.value)}
-            />
+            <div className="py-1">
+              <input
+                placeholder="Purchase Name"
+                className="input input-bordered w-full max-w-xs"
+                value={purchaseName}
+                onChange={e => setPurchaseName(e.target.value)}
+              />
+            </div>
+            <div className="py-1">
+              <input
+                placeholder="Purchase Amount"
+                className="input input-bordered w-full max-w-xs"
+                value={purchaseAmount}
+                onChange={e => setPurchaseAmount(e.target.value)}
+              />
+            </div>
+            <div className="py-1">
+              <input
+                placeholder="Buyer's Name"
+                className="input input-bordered w-full max-w-xs"
+                value={personName}
+                onChange={e => setPersonName(e.target.value)}
+              />
+            </div>
             {peopleInGroup?.map((name, index) => (
-              <div key={index}>
-                <label className="flex">
-                  <input type="checkbox" className="checkbox" onChange={() => handleCheckbox(name)} />
-                  {name}
-                </label>
+              <div className="py-1">
+                <div key={index}>
+                  <label className="flex">
+                    <input type="checkbox" className="checkbox" onChange={() => handleCheckbox(name)} />
+                    <div className="px-3">{name}</div>
+                  </label>
+                </div>
               </div>
             ))}
             <div className="py-5">
