@@ -86,9 +86,9 @@ export const AddPurchase: React.FC<Props> = props => {
                 onChange={e => setPersonName(e.target.value)}
               />
             </div>
-            {peopleInGroup?.map((name, index) => (
+            {peopleInGroup?.map(name => (
               <div className="py-1">
-                <div key={index}>
+                <div>
                   <label className="flex">
                     <input type="checkbox" className="checkbox" onChange={() => handleCheckbox(name)} />
                     <div className="px-3">{name}</div>
