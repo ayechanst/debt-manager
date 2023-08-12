@@ -75,7 +75,7 @@ export const AddPurchase: React.FC<Props> = props => {
                 placeholder="Purchase Amount"
                 className="input input-bordered w-full max-w-xs"
                 value={purchaseAmount}
-                onChange={e => setPurchaseAmount(e.target.value)}
+                onChange={e => setPurchaseAmount(Number(e.target.value || 0))}
               />
             </div>
             <div className="py-1">
