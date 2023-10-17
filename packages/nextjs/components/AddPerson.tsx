@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import React, { useState } from 'react';
+import { useScaffoldContractWrite } from '~~/hooks/scaffold-eth';
 
 interface Props {
   groupTitleProps: string;
@@ -7,14 +7,15 @@ interface Props {
 
 export const AddPerson: React.FC<Props> = props => {
   const { groupTitleProps } = props;
-  const [personName, setPersonName] = useState("");
+  const [personName, setPersonName] = useState('');
+  const [personAddress, setPersonAddress] = useState('');
 
   const { writeAsync } = useScaffoldContractWrite({
-    contractName: "YourContract",
-    functionName: "createPerson",
-    args: [personName, groupTitleProps],
+    contractName: 'YourContract',
+    functionName: 'createPerson',
+    args: [personName, groupTitleProps, personAddress],
     onBlockConfirmation: txnReceipt => {
-      console.log("person created", txnReceipt.blockHash);
+      console.log('person created', txnReceipt.blockHash);
     },
   });
 
@@ -33,9 +34,18 @@ export const AddPerson: React.FC<Props> = props => {
               <input
                 className="input input-bordered w-full max-w-xs"
                 placeholder="Person's name"
-                id="createGameInput"
                 value={personName}
                 onChange={e => setPersonName(e.target.value)}
+                type="string"
+                required
+              />
+            </div>
+            <div className="flex space-y-1 flex-col">
+              <input
+                className="input input-bordered w-full max-w-xs"
+                placeholder="Person's address"
+                value={personAddress}
+                onChange={e => setPersonAddress(e.target.value)}
                 type="string"
                 required
               />
