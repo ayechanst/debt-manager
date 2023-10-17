@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { MakeGroup } from "../components/MakeGroup";
-import { SelectGroup } from "../components/SelectGroup";
+import React, { useState } from 'react';
+import { MakeGroup } from '../components/MakeGroup';
+import { SelectGroup } from '../components/SelectGroup';
 
 export const Home = () => {
   const [addGroup, setAddGroup] = useState(false);
